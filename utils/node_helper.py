@@ -1,5 +1,6 @@
-import subprocess
+import asyncio
 import os
+from shutil import which
 from utils.logger import logger
 
 
@@ -10,24 +11,70 @@ class NodeHelper:
         self.node_version = node_version
         self.env_node_path = env_node_path
 
-    def setup_node_environment(self):
-        """Установка Node.js и npm с использованием nodeenv."""
+    async def is_tool_installed(self, tool_name):
+        """Проверка, установлен ли инструмент в системе."""
+        return which(tool_name) is not None
+
+    async def install_nodeenv(self):
+        """Асинхронная установка nodeenv, если он не установлен."""
+        if not await self.is_tool_installed('nodeenv'):
+            try:
+                logger.info("Установка nodeenv...")
+                process = await asyncio.create_subprocess_shell(
+                    'pip install nodeenv',
+                    stdout=asyncio.subprocess.PIPE,
+                    stderr=asyncio.subprocess.PIPE
+                )
+                await process.communicate()
+                logger.info("nodeenv успешно установлен.")
+            except Exception as e:
+                logger.error(f"Ошибка при установке nodeenv: {e}")
+                raise
+        else:
+            logger.info("nodeenv уже установлен.")
+
+    async def setup_node_environment(self):
+        """Асинхронная установка Node.js и npm с использованием nodeenv."""
         try:
-            logger.info("Установка nodeenv...")
-            subprocess.run(['pip', 'install', 'nodeenv'], check=True)
+            # Установка nodeenv, если он не установлен
+            await self.install_nodeenv()
 
-            logger.info(f"Создание виртуальной среды Node.js версии {self.node_version}...")
-            subprocess.run(['nodeenv', '--node=' + self.node_version, self.env_node_path], check=True)
+            # Создание виртуальной среды Node.js, если она не существует
+            if not os.path.exists(self.env_node_path):
+                logger.info(f"Создание виртуальной среды Node.js версии {self.node_version}...")
+                process = await asyncio.create_subprocess_shell(
+                    f'nodeenv --node={self.node_version} {self.env_node_path}',
+                    stdout=asyncio.subprocess.PIPE,
+                    stderr=asyncio.subprocess.PIPE
+                )
+                await process.communicate()
 
-            logger.info("Активация виртуальной среды Node.js...")
-            activate_script = os.path.join(self.env_node_path, 'bin', 'activate')
-            exec(open(activate_script).read(), dict(__file__=activate_script))
+                logger.info("Активация виртуальной среды Node.js...")
+                activate_script = os.path.join(self.env_node_path, 'bin', 'activate')
+                exec(open(activate_script).read(), dict(__file__=activate_script))
 
-            logger.info("Установка Appium через npm...")
-            subprocess.run(['npm', 'install', '-g', 'appium'], check=True)
+                await self.install_appium()
+            else:
+                logger.info("Виртуальная среда Node.js уже создана.")
 
-            logger.info("Установка завершена успешно.")
-
-        except subprocess.CalledProcessError as e:
+        except Exception as e:
             logger.error(f"Ошибка при установке Node.js или Appium: {e}")
+            raise
+
+    async def install_appium(self):
+        """Асинхронная установка Appium через npm."""
+        try:
+            if not await self.is_tool_installed('appium'):
+                logger.info("Установка Appium через npm...")
+                process = await asyncio.create_subprocess_shell(
+                    'npm install -g appium',
+                    stdout=asyncio.subprocess.PIPE,
+                    stderr=asyncio.subprocess.PIPE
+                )
+                await process.communicate()
+                logger.info("Appium успешно установлен.")
+            else:
+                logger.info("Appium уже установлен.")
+        except Exception as e:
+            logger.error(f"Ошибка при установке Appium: {e}")
             raise

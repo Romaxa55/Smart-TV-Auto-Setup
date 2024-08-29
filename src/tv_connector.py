@@ -37,11 +37,11 @@ class TVAutoSetup:
         # Здесь будет логика для взаимодействия с устройством через Appium
         pass
 
-    def run(self):
+    async def run(self):
         """Основной метод для запуска всех операций."""
         try:
             # Установка Node.js и Appium
-            self.node_helper.setup_node_environment()
+            await self.node_helper.setup_node_environment()
 
             # Запуск Appium сервера
             self.start_appium_server()
@@ -56,5 +56,5 @@ class TVAutoSetup:
             logger.error(f"Ошибка при выполнении настройки TV: {e}")
         finally:
             # Отключение всех соединений
-            self.adb_helper.disconnect(self.device_ip)
+            await self.adb_helper.disconnect(self.device_ip)
             self.stop_appium_server()
