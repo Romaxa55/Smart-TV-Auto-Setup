@@ -1,0 +1,3 @@
+com.example.unwantedapp1
+com.example.unwantedapp2
+# Добавьте сюда другие пакеты, которые нужно удалить

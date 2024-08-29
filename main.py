@@ -1,4 +1,7 @@
 import asyncio
+
+from config.appium_config import Config
+from src.tv_installer import TVInstaller
 from utils.adb_helper import AdbHelper
 from utils.node_helper import NodeHelper
 from utils.scanner_helper import ScannerHelper
@@ -34,6 +37,16 @@ async def main():
 
         # Запускаем процесс автоматической настройки
         await tv_setup.run()
+
+        # Создаем объект конфигурации
+        config = Config(device_name=device_ip)
+
+        # Создаем объект TVInstaller для управления приложениями
+        tv_installer = TVInstaller(device_ip, config)
+
+        # Выполняем удаление пакетов согласно конфигурации
+        await tv_installer.run()
+
     else:
         logger.info("Устройства для подключения не найдены.")
 
