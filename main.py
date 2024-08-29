@@ -15,9 +15,6 @@ async def main():
     # Асинхронно сканируем локальную сеть на устройства с открытым портом 5555
     await scanner_helper.scan_network()
 
-    # Подключаемся к найденным устройствам через ADB
-    await scanner_helper.connect_to_devices()
-
     # Получаем список найденных устройств
     found_devices = scanner_helper.get_found_devices()
 
@@ -26,8 +23,14 @@ async def main():
         # Используем первое найденное устройство
         device_ip = found_devices[0]
 
-        # Создаем объект для автоматической настройки
-        tv_setup = TVAutoSetup(device_ip, adb_helper, node_helper)
+        # Установка Node.js и Appium
+        await node_helper.setup_node_environment()
+
+        # Получаем путь к виртуальной среде Node.js
+        node_env_path = node_helper.env_node_path
+
+        # Создаем объект для автоматической настройки, передавая путь к Node.js
+        tv_setup = TVAutoSetup(device_ip, adb_helper, node_helper, node_env_path)
 
         # Запускаем процесс автоматической настройки
         await tv_setup.run()

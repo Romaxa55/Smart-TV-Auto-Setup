@@ -48,33 +48,53 @@ class NodeHelper:
                     stderr=asyncio.subprocess.PIPE
                 )
                 await process.communicate()
-
-                logger.info("Активация виртуальной среды Node.js...")
-                activate_script = os.path.join(self.env_node_path, 'bin', 'activate')
-                exec(open(activate_script).read(), dict(__file__=activate_script))
-
-                await self.install_appium()
+                logger.info("Виртуальная среда Node.js успешно создана.")
             else:
                 logger.info("Виртуальная среда Node.js уже создана.")
+
+            # Установка Appium в активированной среде Node.js
+            await self.install_appium_in_env()
 
         except Exception as e:
             logger.error(f"Ошибка при установке Node.js или Appium: {e}")
             raise
 
-    async def install_appium(self):
-        """Асинхронная установка Appium через npm."""
+    async def install_appium_in_env(self):
+        """Асинхронная установка Appium в активированной виртуальной среде Node.js."""
         try:
-            if not await self.is_tool_installed('appium'):
-                logger.info("Установка Appium через npm...")
-                process = await asyncio.create_subprocess_shell(
-                    'npm install -g appium',
+            activate_script = os.path.join(self.env_node_path, 'bin', 'activate')
+
+            if os.path.exists(activate_script):
+                logger.info("Проверка установки Appium в виртуальной среде Node.js...")
+
+                # Проверка, установлен ли Appium в среде
+                check_process = await asyncio.create_subprocess_shell(
+                    f'bash -c "source {activate_script} && npm list -g appium"',
                     stdout=asyncio.subprocess.PIPE,
                     stderr=asyncio.subprocess.PIPE
                 )
-                await process.communicate()
-                logger.info("Appium успешно установлен.")
+                check_stdout, check_stderr = await check_process.communicate()
+
+                if "appium@" in check_stdout.decode():
+                    logger.info("Appium уже установлен в виртуальной среде Node.js.")
+                    return  # Выходим из метода, если Appium уже установлен
+
+                logger.info("Appium не найден. Установка Appium...")
+
+                # Запуск команд в одной сессии для установки Appium
+                process = await asyncio.create_subprocess_shell(
+                    f'bash -c "source {activate_script} && npm install -g appium"',
+                    stdout=asyncio.subprocess.PIPE,
+                    stderr=asyncio.subprocess.PIPE
+                )
+                stdout, stderr = await process.communicate()
+
+                if process.returncode == 0:
+                    logger.info("Appium успешно установлен в виртуальной среде Node.js.")
+                else:
+                    logger.error(f"Ошибка при установке Appium: {stderr.decode().strip()}")
             else:
-                logger.info("Appium уже установлен.")
+                logger.error(f"Не удалось найти скрипт активации: {activate_script}")
         except Exception as e:
-            logger.error(f"Ошибка при установке Appium: {e}")
+            logger.error(f"Ошибка при установке Appium в среде Node.js: {e}")
             raise
