@@ -1,79 +1,60 @@
-from appium import webdriver
-from selenium.webdriver.common.by import By  # Используем By из Selenium
-from utils.logger import logger  # Импортируем глобальный логгер
+from appium.webdriver.appium_service import AppiumService
+from utils.logger import logger
 
 
-class AndroidTVConnector:
-    """Класс для подключения и взаимодействия с Android TV через Appium."""
+class TVAutoSetup:
+    """Класс для автоматической настройки и управления Android TV через ADB и Appium."""
 
-    def __init__(self, appium_server_url, capabilities):
-        """
-        Инициализация коннектора с конфигурацией Appium.
+    def __init__(self, device_ip, adb_helper, node_helper):
+        self.device_ip = device_ip
+        self.adb_helper = adb_helper
+        self.node_helper = node_helper
+        self.appium_service = None
 
-        :param appium_server_url: URL Appium сервера (например, 'http://localhost:4723')
-        :param capabilities: Словарь с capabilities для Appium
-        """
-        self.appium_server_url = appium_server_url
-        self.capabilities = capabilities
-        self.driver = None
-        logger.info("Инициализация AndroidTVConnector")
-
-    def connect(self):
-        """Подключение к Android TV с использованием Appium."""
+    def start_appium_server(self):
+        """Запуск сервера Appium с использованием AppiumService."""
         try:
-            logger.info("Устанавливаем соединение с Android TV...")
-            self.driver = webdriver.Remote(self.appium_server_url, self.capabilities)
-            logger.info("Соединение установлено.")
+            logger.info("Запуск Appium сервера с использованием AppiumService...")
+            self.appium_service = AppiumService()
+            self.appium_service.start()
+            logger.info("Appium сервер запущен.")
         except Exception as e:
-            logger.error(f"Ошибка подключения к Android TV: {e}")
+            logger.error(f"Не удалось запустить Appium сервер: {e}")
             raise
 
-    def disconnect(self):
-        """Закрытие сессии Appium драйвера."""
-        if self.driver:
-            self.driver.quit()
-            self.driver = None
-            logger.info("Соединение с Android TV закрыто.")
-
-    def find_element_and_click(self, by, value):
-        """
-        Найти элемент по заданному локатору и нажать на него.
-
-        :param by: Метод поиска элемента (например, By.XPATH)
-        :param value: Значение локатора для поиска (например, '//*[@text="Battery"]')
-        """
+    def stop_appium_server(self):
+        """Остановка сервера Appium с использованием AppiumService."""
         try:
-            logger.info(f"Ищем элемент по {by} с значением {value}...")
-            element = self.driver.find_element(by=by, value=value)
-            element.click()
-            logger.info("Элемент найден и нажат.")
+            if self.appium_service:
+                logger.info("Остановка Appium сервера...")
+                self.appium_service.stop()
+                logger.info("Appium сервер остановлен.")
         except Exception as e:
-            logger.error(f"Ошибка при поиске или нажатии на элемент: {e}")
-            raise
+            logger.error(f"Не удалось остановить Appium сервер: {e}")
 
+    def execute_action(self):
+        """Выполнение действий на Android TV."""
+        # Здесь будет логика для взаимодействия с устройством через Appium
+        pass
 
-# Пример использования:
-if __name__ == '__main__':
-    capabilities = {
-        "platformName": "Android",
-        "automationName": "uiautomator2",
-        "deviceName": "Android",  # Замените на имя вашего устройства
-        "appPackage": "com.android.settings",
-        "appActivity": ".Settings",
-        "language": "en",
-        "locale": "US"
-    }
+    def run(self):
+        """Основной метод для запуска всех операций."""
+        try:
+            # Установка Node.js и Appium
+            self.node_helper.setup_node_environment()
 
-    appium_server_url = 'http://localhost:4723'
+            # Запуск Appium сервера
+            self.start_appium_server()
 
-    # Создаем объект коннектора
-    tv_connector = AndroidTVConnector(appium_server_url, capabilities)
+            # Подключение к устройству через ADB
+            self.adb_helper.connect(self.device_ip, 5555)
 
-    # Подключаемся к Android TV
-    tv_connector.connect()
+            # Выполнение действия на Android TV
+            self.execute_action()
 
-    # Ищем элемент "Battery" и кликаем по нему
-    tv_connector.find_element_and_click(By.XPATH, '//*[@text="Battery"]')
-
-    # Отключаемся
-    tv_connector.disconnect()
+        except Exception as e:
+            logger.error(f"Ошибка при выполнении настройки TV: {e}")
+        finally:
+            # Отключение всех соединений
+            self.adb_helper.disconnect(self.device_ip)
+            self.stop_appium_server()
