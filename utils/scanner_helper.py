@@ -1,6 +1,5 @@
 import asyncio
 import subprocess
-
 from ppadb.client import Client as AdbClient
 from utils.logger import logger
 from config.appium_config import Config
@@ -9,7 +8,7 @@ from config.appium_config import Config
 class ScannerHelper:
     """Класс для асинхронного сканирования сети и подключения к устройствам Android с открытым портом 5555 через ADB."""
 
-    def __init__(self, adb_host='127.0.0.1', adb_port=5037, scan_port=5555, timeout=1, interface='en0'):
+    def __init__(self, adb_host='127.0.0.1', adb_port=5037, scan_port=5555, timeout=2, interface='en0'):
         self.adb_client = AdbClient(host=adb_host, port=adb_port)
         self.scan_port = scan_port
         self.timeout = timeout
@@ -23,24 +22,23 @@ class ScannerHelper:
             result = subprocess.run(['adb', 'start-server'], capture_output=True, text=True)
             if "daemon started successfully" in result.stderr:
                 logger.info("Запустили ADB-сервер.")
-            else:
-                logger.error(f"ADB-сервер уже запущен.")
         except Exception as e:
             logger.error(f"Ошибка при запуске ADB-сервера: {e}")
 
     async def is_port_open(self, ip, port):
         """Асинхронная проверка, открыт ли указанный порт на IP-адресе."""
-        try:
-            # Открываем соединение с IP и портом
-            reader, writer = await asyncio.wait_for(
-                asyncio.open_connection(ip, port), timeout=self.timeout
-            )
-            writer.close()
-            await writer.wait_closed()
-            return True
-        except (asyncio.TimeoutError, ConnectionRefusedError, OSError):
-            # Пропускаем ошибки соединения и продолжаем сканирование
-            return False
+        for attempt in range(3):  # Пытаемся несколько раз, если соединение не удалось
+            try:
+                # Открываем соединение с IP и портом
+                reader, writer = await asyncio.wait_for(
+                    asyncio.open_connection(ip, port), timeout=self.timeout
+                )
+                writer.close()
+                await writer.wait_closed()
+                return True
+            except (asyncio.TimeoutError, ConnectionRefusedError, OSError):
+                await asyncio.sleep(0.5)  # Небольшая задержка перед повторной попыткой
+        return False
 
     async def scan_ip(self, ip):
         """Асинхронное сканирование одного IP-адреса."""
@@ -72,38 +70,35 @@ class ScannerHelper:
         try:
             await self.start_adb_server()  # Убедиться, что ADB-сервер запущен
             logger.info(f"Подключаемся к устройству {device_ip}:{self.scan_port} через ADB...")
-            connected = self.adb_client.remote_connect(device_ip, self.scan_port)
 
+            # Попытка подключиться к устройству через ADB
+            connected = await self.adb_client.remote_connect(device_ip, self.scan_port)
             if connected:
-                # Проверяем, что устройство появилось среди подключенных
-                devices = self.adb_client.devices()
-                adb_device = next(
-                    (device for device in devices if device.get_serial_no() == f"{device_ip}:{self.scan_port}"), None)
+                logger.info(f"Удаленное подключение к {device_ip}:{self.scan_port} выполнено успешно.")
 
-                if adb_device:
-                    logger.info(
-                        f"Устройство {device_ip}:{self.scan_port} успешно подключено через ADB и доступно для использования.")
-                    return True
-                else:
-                    logger.error(f"Устройство {device_ip}:{self.scan_port} не найдено после подключения.")
-        except Exception:
+                # Даем время ADB серверу для обнаружения устройства
+                for attempt in range(5):
+                    devices = await self.adb_client.devices()
+                    logger.debug(
+                        f"Найденные устройства после подключения (попытка {attempt + 1}): {[device.get_serial_no() for device in devices]}")
+
+                    adb_device = next(
+                        (device for device in devices if device.get_serial_no() == f"{device_ip}:{self.scan_port}"),
+                        None)
+
+                    if adb_device:
+                        logger.info(f"Устройство {device_ip}:{self.scan_port} успешно подключено через ADB.")
+                        return True
+
+                    # Ожидание перед повторной попыткой
+                    await asyncio.sleep(1)
+
+                logger.error(f"Устройство {device_ip}:{self.scan_port} не найдено среди подключенных устройств.")
+            else:
+                logger.error(f"Удаленное подключение к {device_ip}:{self.scan_port} не удалось.")
+        except Exception as e:
             logger.error(f"Ошибка при подключении к устройству {device_ip}:{self.scan_port}: {e}")
         return False
-
-    async def connect_to_devices(self):
-        """Асинхронное подключение ко всем найденным устройствам через ADB."""
-        if not self.found_devices:
-            logger.info("Нет найденных устройств для подключения.")
-            return
-
-        tasks = [self.connect_to_device(device_ip) for device_ip in self.found_devices]
-        results = await asyncio.gather(*tasks)
-        successful_connections = [self.found_devices[i] for i, connected in enumerate(results) if connected]
-
-        if successful_connections:
-            logger.info(f"Успешно подключено {len(successful_connections)} устройство(й) через ADB.")
-        else:
-            logger.info("Не удалось подключиться ни к одному устройству через ADB.")
 
     def get_found_devices(self):
         """Получение списка найденных устройств."""

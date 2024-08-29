@@ -1,6 +1,7 @@
 import os
 import socket
 from subprocess import check_output, CalledProcessError
+
 from appium.webdriver.appium_service import AppiumService
 from utils.logger import logger
 
@@ -40,9 +41,6 @@ class TVAutoSetup:
             return
 
         try:
-            # Проверка и освобождение порта перед запуском сервера
-            self.check_and_free_port(4723)
-
             # Добавление пути виртуальной среды в PATH
             node_bin_path = os.path.join(self.node_env_path, 'bin')
             os.environ['PATH'] = f"{node_bin_path}:{os.environ['PATH']}"
@@ -56,7 +54,7 @@ class TVAutoSetup:
             logger.error(f"Не удалось запустить Appium сервер: {e}")
             raise
 
-    def stop_appium_server(self):
+    async def stop_appium_server(self):
         """Остановка сервера Appium с использованием AppiumService."""
         if not self.is_appium_running:
             logger.info("Appium сервер уже остановлен.")
@@ -88,5 +86,5 @@ class TVAutoSetup:
         finally:
             # Отключение всех соединений
             if self.is_device_connected:
-                await self.adb_helper.disconnect(self.device_ip)
-            self.stop_appium_server()
+                await self.adb_helper.disconnect()
+            await self.stop_appium_server()

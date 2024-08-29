@@ -1,7 +1,7 @@
 from ppadb.client_async import ClientAsync as AdbClient  # Используем асинхронный клиент ADB
 from utils.logger import logger
 import asyncio
-import os
+
 
 class AdbHelper:
     """Класс для управления подключением к устройству через ADB с использованием ppadb."""
@@ -13,48 +13,27 @@ class AdbHelper:
 
     async def connect(self, device_ip, adb_port):
         """Асинхронное подключение к устройству через ADB."""
-        device_address = f"{device_ip}:{adb_port}"
-
-        if device_address in self.connected_devices:
-            logger.info(f"Устройство {device_address} уже подключено.")
-            return
-
         try:
-            logger.info(f"Подключаемся к устройству {device_address} через ADB...")
-            devices = await self.adb_client.devices()
+            logger.info(f"Подключаемся к устройству {device_ip}:{adb_port} через ADB...")
 
-            self.adb_device = next((device for device in devices if device.serial == device_address), None)
+            # Выполнение команды ADB для подключения
+            await self.adb_client.create_connection()
+            self.adb_device = await self.adb_client.device(f"{device_ip}:{adb_port}")
 
             if self.adb_device:
-                self.connected_devices.add(device_address)
-                logger.info(f"ADB успешно подключен к {device_address}.")
+                logger.info(f"ADB успешно подключен к {device_ip}:{adb_port}.")
             else:
-                raise ConnectionError(f"Не удалось найти устройство по адресу {device_address}.")
+                raise ConnectionError(f"Не удалось найти устройство по адресу {device_ip}:{adb_port}.")
         except Exception as e:
             logger.error(f"Ошибка при подключении к ADB: {e}")
             raise
 
-    async def disconnect(self, device_ip, adb_port=5555):
-        """Принудительное отключение устройства путем перезапуска сервера ADB."""
-        device_address = f"{device_ip}:{adb_port}"
-
-        if device_address not in self.connected_devices:
-            logger.info(f"Устройство {device_address} не подключено.")
-            return
-
+    async def disconnect(self):
+        """Принудительное отключение всех устройств путем перезапуска сервера ADB."""
         try:
             logger.info("Перезапуск сервера ADB для отключения всех устройств...")
-            # Остановка ADB сервера
-            await self.restart_adb_server()
-            self.connected_devices.clear()
-            logger.info("Все устройства были отключены.")
-        except Exception as e:
-            logger.error(f"Ошибка при отключении ADB: {e}")
 
-    async def restart_adb_server(self):
-        """Перезапуск сервера ADB."""
-        try:
-            # Выполняем команду 'adb kill-server' для остановки сервера ADB
+            # Остановка ADB сервера
             process = await asyncio.create_subprocess_shell(
                 'adb kill-server',
                 stdout=asyncio.subprocess.PIPE,
@@ -62,7 +41,7 @@ class AdbHelper:
             )
             await process.communicate()
 
-            # Выполняем команду 'adb start-server' для запуска сервера ADB
+            # Запуск ADB сервера
             process = await asyncio.create_subprocess_shell(
                 'adb start-server',
                 stdout=asyncio.subprocess.PIPE,
@@ -71,9 +50,19 @@ class AdbHelper:
             stdout, stderr = await process.communicate()
 
             if process.returncode == 0:
-                logger.info("ADB сервер успешно перезапущен.")
+                logger.info("ADB сервер успешно перезапущен. Все устройства отключены.")
+                self.connected_devices.clear()
             else:
                 logger.error(f"Ошибка при запуске ADB сервера: {stderr.decode().strip()}")
 
         except Exception as e:
             logger.error(f"Ошибка при перезапуске ADB сервера: {e}")
+
+    def get_connected_device(self):
+        """Получение подключенного устройства."""
+        if self.adb_device:
+            logger.info("Возвращаем подключенное устройство.")
+            return self.adb_device
+        else:
+            logger.error("Нет подключенного устройства.")
+            return None
