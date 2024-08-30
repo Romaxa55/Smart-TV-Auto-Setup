@@ -2,6 +2,7 @@ import os
 import socket
 from subprocess import check_output, CalledProcessError
 
+import psutil
 from appium.webdriver.appium_service import AppiumService
 from utils.logger import logger
 
@@ -19,18 +20,44 @@ class TVAutoSetup:
         self.is_device_connected = False
 
     def check_and_free_port(self, port=4723):
-        """Проверка, используется ли порт, и завершение процесса, если это так."""
+        """Проверка, используется ли порт, и завершение процесса Appium, если это так."""
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             if sock.connect_ex(('localhost', port)) == 0:
                 logger.info(f"Порт {port} уже используется. Попытка освободить его...")
-                try:
-                    # Определяем PID процесса, который использует порт
-                    pid = check_output(["lsof", "-t", "-i", f":{port}"]).decode().strip()
-                    # Завершаем процесс
-                    os.system(f"kill -9 {pid}")
-                    logger.info(f"Процесс с PID {pid}, использующий порт {port}, был завершен.")
-                except CalledProcessError as e:
-                    logger.error(f"Не удалось завершить процесс, использующий порт {port}: {e}")
+
+                # Получаем имя текущего пользователя
+                current_user = psutil.Process().username()
+
+                # Ищем процессы, принадлежащие текущему пользователю
+                for proc in psutil.process_iter(attrs=['pid', 'name', 'username']):
+                    try:
+                        # Проверяем только процессы текущего пользователя
+                        if proc.username() == current_user:
+                            # Пропускаем процессы с именем 'launcher' и другие, которые не нужно завершать
+                            if 'launcher' in proc.name().lower() or 'login' in proc.name().lower():
+                                continue
+
+                            # Проверяем соединения процесса
+                            for conn in proc.connections(kind='inet'):
+                                if conn.laddr.port == port and conn.status == psutil.CONN_LISTEN:
+                                    logger.info(f"Процесс {proc.name()} с PID {proc.pid} использует порт {port}.")
+
+                                    try:
+                                        proc.kill()  # Попытка принудительного завершения процесса
+                                        proc.wait(timeout=3)  # Ждем завершения процесса
+                                        logger.info(f"Процесс с PID {proc.pid} был принудительно завершен.")
+                                    except psutil.TimeoutExpired:
+                                        logger.error(
+                                            f"Ошибка при обработке процесса {proc.pid}: timeout after 3 seconds.")
+                                    except psutil.AccessDenied:
+                                        logger.error(f"Доступ к процессу с PID {proc.pid} запрещен.")
+                                    except Exception as e:
+                                        logger.error(f"Не удалось завершить процесс с PID {proc.pid}: {e}")
+                                    return  # Прерываем выполнение после завершения процесса
+                    except (psutil.NoSuchProcess, psutil.ZombieProcess) as e:
+                        logger.error(f"Процесс {proc.pid} является зомби или уже не существует: {e}")
+                    except psutil.AccessDenied as e:
+                        logger.error(f"Доступ к процессу с PID {proc.pid} запрещен: {e}")
             else:
                 logger.info(f"Порт {port} свободен.")
 
@@ -40,6 +67,8 @@ class TVAutoSetup:
             logger.info("Appium сервер уже запущен.")
             return
 
+        # Проверка и освобождение порта
+        self.check_and_free_port()
         try:
             # Добавление пути виртуальной среды в PATH
             node_bin_path = os.path.join(self.node_env_path, 'bin')

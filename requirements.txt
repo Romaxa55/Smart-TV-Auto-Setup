@@ -4,3 +4,4 @@ pure-python-adb==0.3.0.dev0
 nodeenv==1.9.1
 netifaces==0.11.0
 aiofiles==24.1.0
+psutil==6.0.0
