@@ -18,7 +18,7 @@ class AdbHelper:
 
             # Выполнение команды ADB для подключения
             await self.adb_client.create_connection()
-            self.adb_device = await self.adb_client.device(f"{device_ip}:{adb_port}")
+            self.adb_device = self.adb_client.device(f"{device_ip}:{adb_port}")
 
             if self.adb_device:
                 logger.info(f"ADB успешно подключен к {device_ip}:{adb_port}.")

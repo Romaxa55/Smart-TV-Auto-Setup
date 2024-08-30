@@ -83,8 +83,8 @@ class TVAutoSetup:
 
         except Exception as e:
             logger.error(f"Ошибка при выполнении настройки TV: {e}")
-        finally:
-            # Отключение всех соединений
-            if self.is_device_connected:
-                await self.adb_helper.disconnect()
-            await self.stop_appium_server()
+        # finally:
+        #     # Отключение всех соединений
+        #     if self.is_device_connected:
+        #         await self.adb_helper.disconnect()
+        #     await self.stop_appium_server()
