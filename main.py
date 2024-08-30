@@ -49,18 +49,17 @@ async def main():
             await tv_setup.run()
             logger.info("Процесс автоматической настройки завершен.")
 
-            # Можно раскомментировать код ниже, если нужно выполнить TVInstaller
-            # logger.info("Создаем объект конфигурации для TVInstaller.")
-            # config = Config(device_name=device_ip)
-            # logger.info("Проверяем подключенное устройство.")
-            # device = adb_helper.get_connected_device()
-            # if device:
-            #     logger.info("Устройство подключено. Создаем объект TVInstaller.")
-            #     tv_installer = TVInstaller(device_ip, adb_helper, config)
-            #     logger.info("Запускаем процесс управления приложениями через TVInstaller.")
-            #     await tv_installer.run()
-            # else:
-            #     logger.error("Устройство не подключено через ADB.")
+            logger.info("Создаем объект конфигурации для TVInstaller.")
+            config = Config(device_name=device_ip)
+            logger.info("Проверяем подключенное устройство.")
+            device = adb_helper.get_connected_device()
+            if device:
+                logger.info("Устройство подключено. Создаем объект TVInstaller.")
+                tv_installer = TVInstaller(device_ip, adb_helper, config)
+                logger.info("Запускаем процесс управления приложениями через TVInstaller.")
+                await tv_installer.run()
+            else:
+                logger.error("Устройство не подключено через ADB.")
 
         else:
             logger.info("Устройства для подключения не найдены.")

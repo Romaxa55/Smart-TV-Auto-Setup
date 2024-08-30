@@ -1,4 +1,5 @@
 import netifaces as ni
+import yaml
 from utils.logger import logger
 
 
@@ -6,7 +7,7 @@ class Config:
     """Класс для хранения конфигурации Appium для Android TV."""
 
     def __init__(self, device_name, platform_name='Android', automation_name='uiautomator2',
-                 appium_server_url='http://localhost:4723', uninstall_packages_file='uninstall_packages.txt'):
+                 appium_server_url='http://localhost:4723', uninstall_packages_file='uninstall_packages.yaml'):
         self.device_name = device_name
         self.platform_name = platform_name
         self.automation_name = automation_name
@@ -46,14 +47,18 @@ class Config:
         }
 
     def load_packages_to_uninstall(self):
-        """Загрузка списка пакетов для удаления из файла."""
+        """Загрузка списка пакетов для удаления из YAML файла."""
         try:
             with open(self.uninstall_packages_file, 'r') as file:
-                packages = [line.strip() for line in file if line.strip() and not line.startswith('#')]
+                data = yaml.safe_load(file)
+                packages = data.get('removable_packages', [])
                 logger.info(f"Загружено {len(packages)} пакетов для удаления из {self.uninstall_packages_file}.")
-                return packages
+                return [pkg['package'] for pkg in packages if 'package' in pkg]
         except FileNotFoundError:
             logger.error(f"Файл {self.uninstall_packages_file} не найден.")
+            return []
+        except yaml.YAMLError as e:
+            logger.error(f"Ошибка при разборе YAML файла: {e}")
             return []
         except Exception as e:
             logger.error(f"Ошибка при загрузке пакетов для удаления: {e}")

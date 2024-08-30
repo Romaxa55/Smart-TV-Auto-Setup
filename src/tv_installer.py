@@ -16,7 +16,7 @@ class TVInstaller:
     async def get_installed_packages(self):
         """Получение списка установленных пакетов на устройстве."""
         logger.info("Получение списка установленных пакетов...")
-        packages_output = await self.device.shell('pm list packages')
+        packages_output = self.device.shell('pm list packages')
         packages = [line.split(":")[1] for line in packages_output.splitlines()]
         logger.info(f"Установленные пакеты: {packages}")
         return packages
@@ -24,7 +24,7 @@ class TVInstaller:
     async def uninstall_package(self, package_name):
         """Удаление пакета с устройства."""
         logger.info(f"Удаление пакета {package_name} с устройства...")
-        output = await self.device.shell(f"pm uninstall {package_name}")
+        output = self.device.shell(f"pm uninstall --user 0 {package_name}")
         if "Success" in output:
             logger.info(f"Пакет {package_name} успешно удален.")
         else:
@@ -33,7 +33,7 @@ class TVInstaller:
     async def install_package(self, apk_path):
         """Установка APK на устройстве."""
         logger.info(f"Установка APK {apk_path} на устройстве...")
-        output = await self.device.install(apk_path)
+        output = self.device.install(apk_path)
         if output:
             logger.info(f"APK {apk_path} успешно установлен.")
         else:
@@ -43,6 +43,7 @@ class TVInstaller:
         """Запуск процесса установки и удаления пакетов."""
         # Получение списка установленных пакетов
         installed_packages = await self.get_installed_packages()
+        logger.info(f"Установленные пакеты {installed_packages}")
 
         # Удаляем ненужные пакеты
         for package in self.config.packages_to_uninstall:

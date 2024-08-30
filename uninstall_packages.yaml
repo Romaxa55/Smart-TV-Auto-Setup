@@ -1,0 +1,133 @@
+removable_packages:
+  - package: com.awe.dev.pro.tv
+    description: "Вероятно, стороннее ТВ приложение (назначение неясно)"
+  - package: com.explusalpha.NesEmu
+    description: "Эмулятор игр для NES"
+  - package: com.viettel.tv360.tv
+    description: "ТВ-приложение от Viettel (вьетнамский оператор связи)"
+  - package: ktc.softmenu.ui
+    description: "Вероятно, специфическое приложение для меню от производителя KTC"
+  - package: com.mstar.tv.tvplayer.ui
+    description: "Приложение для проигрывания ТВ-контента от MStar"
+  - package: com.mxtech.videoplayer.ad
+    description: "MX Player с рекламой, видеоплеер для Android TV"
+  - package: com.example.mtvplay
+    description: "Вероятно, приложение для воспроизведения ТВ или видео (назначение неясно)"
+  - package: com.teamsmart.videomanager.tv
+    description: "Вероятно, менеджер видеофайлов для ТВ"
+  - package: ar.tvplayer.tv
+    description: "ТВ-плеер от стороннего разработчика (назначение неясно)"
+  - package: ar.tvplayer.companion
+    description: "Приложение-компаньон для ТВ-плеера (назначение неясно)"
+  - package: vng.zing.mp3
+    description: "Zing MP3, музыкальный проигрыватель"
+  - package: org.jellyfin.androidtv
+    description: "Jellyfin клиент для Android TV, потоковая передача мультимедиа"
+  - package: com.google.android.youtube.tv
+    description: "YouTube приложение для Android TV"
+  - package: com.toptech.am
+    description: "Аудио-менеджер от TopTech"
+  - package: tvtests.com.mstar.android.tv
+    description: "Тестовое приложение от MStar для проверки ТВ-функций"
+  - package: com.gviet.stv
+    description: "Приложение от разработчика Gviet, возможно, сторонний ТВ-плеер или сервис"
+  - package: com.google.android.katniss
+    description: "Google Now (поиск по устройству и интернету)"
+  - package: com.android.providers.calendar
+    description: "Приложение календаря"
+  - package: com.android.tv.settings
+    description: "Настройки Android TV (если не используются)"
+  - package: com.android.wallpapercropper
+    description: "Приложение обрезки обоев"
+  - package: com.mstar.miscsetting
+    description: "Дополнительные настройки от производителя MStar"
+  - package: com.android.documentsui
+    description: "Управление документами и файлами (если не используется)"
+  - package: com.android.quicksearchbox
+    description: "Быстрая строка поиска"
+  - package: com.ecloud.eshare.server
+    description: "Сервер eShare для передачи экрана и мультимедиа"
+  - package: com.ktc.launcher
+    description: "Лаунчер от производителя KTC"
+  - package: com.android.browser
+    description: "Стандартный браузер (если не используется)"
+  - package: com.ktc.miracast
+    description: "Приложение Miracast (если не требуется функция Miracast)"
+  - package: com.android.soundrecorder
+    description: "Диктофон (если не используется)"
+  - package: com.ktc.systemmanager
+    description: "Системный менеджер от производителя KTC"
+  - package: com.android.defcontainer
+    description: "Поддержка установки приложений"
+  - package: com.android.pacprocessor
+    description: "Обработка PAC-файлов для прокси-сервера (если не используется)"
+  - package: com.android.certinstaller
+    description: "Установка сертификатов (если не требуется)"
+  - package: com.mstar.android.setupwizard
+    description: "Мастер настройки от MStar"
+  - package: com.android.backupconfirm
+    description: "Подтверждение резервного копирования данных"
+  - package: com.android.statementservice
+    description: "Поддержка деклараций приложений для доверенных сертификатов"
+  - package: com.google.android.gsf.notouch
+    description: "Google Services Framework без поддержки touch"
+  - package: com.jrm.localmm
+    description: "Локальный мультимедийный менеджер"
+  - package: com.android.printspooler
+    description: "Поддержка печати (если не используется)"
+  - package: com.android.dreams.basic
+    description: "Экранная заставка Daydreams (если не используется)"
+  - package: com.mediatek.autopair
+    description: "Автопаринг для устройств (если не используется)"
+  - package: com.ktc.diagnose
+    description: "Диагностическое приложение от производителя KTC"
+  - package: com.ktc.network
+    description: "Управление сетью от производителя KTC"
+  - package: com.android.musicfx
+    description: "Эффекты для воспроизведения музыки (если не используется)"
+  - package: com.mstar.android.pppoe
+    description: "Поддержка PPPoE подключения от MStar (если не используется)"
+  - package: com.mstar.bluetooth3dservice
+    description: "Поддержка Bluetooth 3D от MStar (если не используется)"
+  - package: com.svox.pico
+    description: "Синтезатор речи Pico TTS (если не используется)"
+  - package: com.android.dreams.phototable
+    description: "Экранная заставка PhotoTable (если не используется)"
+  - package: ktc.factorymenu.ui
+    description: "Меню для сервисных настроек и диагностики от KTC"
+  - package: com.ktc.tvhelper
+    description: "Приложение помощи для ТВ от KTC"
+  - package: com.ecloud.emedia
+    description: "Приложение для воспроизведения медиа от eCloud"
+  - package: com.android.wallpaper.livepicker
+    description: "Приложение для выбора живых обоев"
+  - package: com.ktc.epg
+    description: "Программа телепередач от KTC (EPG)"
+  - package: com.ktc.serialport
+    description: "Поддержка последовательного порта от KTC"
+  - package: com.ecloud.eairplay
+    description: "Поддержка AirPlay от eCloud"
+  - package: com.android.calculator2
+    description: "Стандартный калькулятор Android"
+  - package: com.android.dummyactivity
+    description: "Вспомогательное приложение (если не используется)"
+  - package: com.android.vpndialogs
+    description: "Диалоги VPN (если не используется)"
+  - package: com.android.mcast
+    description: "Приложение для передачи мультимедиа (если не используется)"
+  - package: com.ktc.apkupdatetool
+    description: "Инструмент для обновления APK от производителя KTC"
+  - package: com.ionitech.airscreen
+    description: "AirScreen, поддержка технологий AirPlay, Chromecast, DLNA, Miracast"
+  - package: com.mstar.tv.app
+    description: "Приложение для ТВ от производителя MStar"
+  - package: com.mstar.tv.service
+    description: "Сервис для работы ТВ от производителя MStar"
+  - package: com.ktc.filemanager
+    description: "Файловый менеджер от производителя KTC"
+  - package: com.android.exchange
+    description: "Поддержка почты Microsoft Exchange"
+  - package: com.android.bluetoothmidiservice
+    description: "Служба поддержки MIDI по Bluetooth (если не используется)"
+  - package: com.android.captiveportallogin
+    description: "Аутентификация в публичных сетях Wi-Fi (если не используется)"
