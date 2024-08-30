@@ -1,4 +1,4 @@
-from ppadb.client_async import ClientAsync as AdbClient  # Используем асинхронный клиент ADB
+from ppadb.client import Client as AdbClient  # Используем асинхронный клиент ADB
 from utils.logger import logger
 import asyncio
 
@@ -14,11 +14,14 @@ class AdbHelper:
     async def connect(self, device_ip, adb_port):
         """Асинхронное подключение к устройству через ADB."""
         try:
+            await self.disconnect()
+
             logger.info(f"Подключаемся к устройству {device_ip}:{adb_port} через ADB...")
 
-            # Выполнение команды ADB для подключения
-            await self.adb_client.create_connection()
-            self.adb_device = await self.adb_client.device(f"{device_ip}:{adb_port}")
+            self.adb_client.remote_connect(device_ip, adb_port)
+
+            # Подключаемся к конкретному устройству
+            self.adb_device = self.adb_client.device(f"{device_ip}:{adb_port}")
 
             if self.adb_device:
                 logger.info(f"ADB успешно подключен к {device_ip}:{adb_port}.")
