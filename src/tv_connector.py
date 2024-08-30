@@ -19,7 +19,8 @@ class TVAutoSetup:
         self.is_appium_running = False
         self.is_device_connected = False
 
-    def check_and_free_port(self, port=4723):
+    @staticmethod
+    def check_and_free_port(port=4723):
         """Проверка, используется ли порт, и завершение процесса Appium, если это так."""
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             if sock.connect_ex(('localhost', port)) == 0:
