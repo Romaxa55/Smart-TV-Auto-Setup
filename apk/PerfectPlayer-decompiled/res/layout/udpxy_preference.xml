@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditText android:id="@id/etAddress" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="4.0" android:inputType="textUri" />
+    <TextView android:id="@id/tvColon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=":" />
+    <EditText android:id="@id/etPort" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLength="5" android:layout_weight="1.0" android:inputType="number" />
+</LinearLayout>

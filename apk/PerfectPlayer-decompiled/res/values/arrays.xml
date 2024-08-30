@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="buffer_types">
+        <item>@string/array_buffer_type_1</item>
+        <item>@string/array_buffer_type_2</item>
+        <item>@string/array_buffer_type_3</item>
+        <item>@string/array_buffer_type_4</item>
+    </string-array>
+    <string-array name="buffer_types_values">
+        <item>@string/array_buffer_type_value_1</item>
+        <item>@string/array_buffer_type_value_2</item>
+        <item>@string/array_buffer_type_value_3</item>
+        <item>@string/array_buffer_type_value_4</item>
+    </string-array>
+    <string-array name="decoders">
+        <item>@string/array_decoder_auto</item>
+        <item>@string/array_decoder_native</item>
+        <item>@string/array_decoder_hw</item>
+        <item>@string/array_decoder_sw</item>
+        <item>@string/array_decoder_hw_plus</item>
+    </string-array>
+    <string-array name="decoders_values">
+        <item>@string/array_decoder_value_auto</item>
+        <item>@string/array_decoder_value_native</item>
+        <item>@string/array_decoder_value_hw</item>
+        <item>@string/array_decoder_value_sw</item>
+        <item>@string/array_decoder_value_hw_plus</item>
+    </string-array>
+    <string-array name="font_sizes">
+        <item>@string/array_font_size_small</item>
+        <item>@string/array_font_size_standard</item>
+        <item>@string/array_font_size_large</item>
+        <item>@string/array_font_size_extra_large</item>
+    </string-array>
+    <string-array name="font_sizes_values">
+        <item>@string/array_font_size_value_small</item>
+        <item>@string/array_font_size_value_standard</item>
+        <item>@string/array_font_size_value_large</item>
+        <item>@string/array_font_size_value_extra_large</item>
+    </string-array>
+    <string-array name="info_bar_positions">
+        <item>@string/array_position_bottom</item>
+        <item>@string/array_position_top</item>
+    </string-array>
+    <string-array name="info_bar_positions_values">
+        <item>@string/array_position_value_bottom</item>
+        <item>@string/array_position_value_top</item>
+    </string-array>
+    <string-array name="info_bar_timeouts">
+        <item>@string/array_info_bar_timeout_2</item>
+        <item>@string/array_info_bar_timeout_4</item>
+        <item>@string/array_info_bar_timeout_6</item>
+        <item>@string/array_info_bar_timeout_8</item>
+    </string-array>
+    <string-array name="info_bar_timeouts_values">
+        <item>@string/array_info_bar_timeout_value_2</item>
+        <item>@string/array_info_bar_timeout_value_4</item>
+        <item>@string/array_info_bar_timeout_value_6</item>
+        <item>@string/array_info_bar_timeout_value_8</item>
+    </string-array>
+    <string-array name="languages">
+        <item>@string/array_language_auto</item>
+        <item>@string/array_language_ar</item>
+        <item>@string/array_language_cs</item>
+        <item>@string/array_language_de</item>
+        <item>@string/array_language_el</item>
+        <item>@string/array_language_en</item>
+        <item>@string/array_language_es</item>
+        <item>@string/array_language_fi</item>
+        <item>@string/array_language_fr</item>
+        <item>@string/array_language_ka</item>
+        <item>@string/array_language_iw</item>
+        <item>@string/array_language_hr</item>
+        <item>@string/array_language_hu</item>
+        <item>@string/array_language_it</item>
+        <item>@string/array_language_ku</item>
+        <item>@string/array_language_lt</item>
+        <item>@string/array_language_mk</item>
+        <item>@string/array_language_nl</item>
+        <item>@string/array_language_pl</item>
+        <item>@string/array_language_pt</item>
+        <item>@string/array_language_ro</item>
+        <item>@string/array_language_ru</item>
+        <item>@string/array_language_sl</item>
+        <item>@string/array_language_sq</item>
+        <item>@string/array_language_sr</item>
+        <item>@string/array_language_sv</item>
+        <item>@string/array_language_tr</item>
+        <item>@string/array_language_uk</item>
+        <item>@string/array_language_vi</item>
+        <item>@string/array_language_zh</item>
+        <item>@string/array_language_zh_rCN</item>
+    </string-array>
+    <string-array name="languages_values">
+        <item>@string/array_language_value_auto</item>
+        <item>@string/array_language_value_ar</item>
+        <item>@string/array_language_value_cs</item>
+        <item>@string/array_language_value_de</item>
+        <item>@string/array_language_value_el</item>
+        <item>@string/array_language_value_en</item>
+        <item>@string/array_language_value_es</item>
+        <item>@string/array_language_value_fi</item>
+        <item>@string/array_language_value_fr</item>
+        <item>@string/array_language_value_ka</item>
+        <item>@string/array_language_value_iw</item>
+        <item>@string/array_language_value_hr</item>
+        <item>@string/array_language_value_hu</item>
+        <item>@string/array_language_value_it</item>
+        <item>@string/array_language_value_ku</item>
+        <item>@string/array_language_value_lt</item>
+        <item>@string/array_language_value_mk</item>
+        <item>@string/array_language_value_nl</item>
+        <item>@string/array_language_value_pl</item>
+        <item>@string/array_language_value_pt</item>
+        <item>@string/array_language_value_ro</item>
+        <item>@string/array_language_value_ru</item>
+        <item>@string/array_language_value_sl</item>
+        <item>@string/array_language_value_sq</item>
+        <item>@string/array_language_value_sr</item>
+        <item>@string/array_language_value_sv</item>
+        <item>@string/array_language_value_tr</item>
+        <item>@string/array_language_value_uk</item>
+        <item>@string/array_language_value_vi</item>
+        <item>@string/array_language_value_zh</item>
+        <item>@string/array_language_value_zh_rCN</item>
+    </string-array>
+    <string-array name="positions">
+        <item>@string/array_position_tl</item>
+        <item>@string/array_position_tr</item>
+        <item>@string/array_position_bl</item>
+        <item>@string/array_position_br</item>
+    </string-array>
+    <string-array name="positions_values">
+        <item>@string/array_position_value_tl</item>
+        <item>@string/array_position_value_tr</item>
+        <item>@string/array_position_value_bl</item>
+        <item>@string/array_position_value_br</item>
+    </string-array>
+    <string-array name="themes">
+        <item>@string/array_theme_emerald</item>
+        <item>@string/array_theme_graphite</item>
+        <item>@string/array_theme_satin</item>
+        <item>@string/array_theme_sky</item>
+        <item>@string/array_theme_snow</item>
+        <item>@string/array_theme_velvet</item>
+    </string-array>
+    <string-array name="themes_values">
+        <item>@string/array_theme_value_emerald</item>
+        <item>@string/array_theme_value_graphite</item>
+        <item>@string/array_theme_value_satin</item>
+        <item>@string/array_theme_value_sky</item>
+        <item>@string/array_theme_value_snow</item>
+        <item>@string/array_theme_value_velvet</item>
+    </string-array>
+    <string-array name="transparencies">
+        <item>@string/array_transparency_1</item>
+        <item>@string/array_transparency_2</item>
+        <item>@string/array_transparency_3</item>
+        <item>@string/array_transparency_4</item>
+    </string-array>
+    <string-array name="transparencies_values">
+        <item>@string/array_transparency_value_1</item>
+        <item>@string/array_transparency_value_2</item>
+        <item>@string/array_transparency_value_3</item>
+        <item>@string/array_transparency_value_4</item>
+    </string-array>
+</resources>

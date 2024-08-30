@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <EditText android:id="@id/etPlaylistUrl" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="@string/pref_general_summary_playlist" android:ems="10" android:inputType="textUri">
+            <requestFocus />
+        </EditText>
+        <ImageButton android:id="@id/ibFolder" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </LinearLayout>
+    <RelativeLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <RadioGroup android:orientation="horizontal" android:id="@id/rgPlaylistFormat" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checkedButton="@id/rbM3U" android:layout_toLeftOf="@id/cbVOD" android:layout_alignParentLeft="true" android:layout_alignParentTop="true">
+            <RadioButton android:id="@id/rbM3U" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/playlist_format_m3u" />
+            <RadioButton android:id="@id/rbXC" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/playlist_format_xc" />
+            <RadioButton android:id="@id/rbXSPF" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/playlist_format_xspf" />
+        </RadioGroup>
+        <CheckBox android:id="@id/cbVOD" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="5.0dip" android:text="@string/playlist_vod" android:layout_alignParentTop="true" android:layout_alignParentRight="true" />
+    </RelativeLayout>
+    <EditText android:id="@id/etName" android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="@string/text_playlist_name" android:singleLine="true" />
+</LinearLayout>

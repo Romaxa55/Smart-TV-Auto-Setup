@@ -114,7 +114,7 @@ fi
 echo "APK успешно установлен на эмулятор."
 
 # Шаг 8: Удаление всех ненужных APK, кроме подписанного
-echo "Удаление всех ненужных APK..."
-rm -f "$MODIFIED_APK" "$UNSIGNED_ALIGNED_APK"
+echo "Удаление всех ненужных APK и файлов подписей..."
+rm -f "$MODIFIED_APK" "$UNSIGNED_ALIGNED_APK" "$SIGNED_APK.idsig"
 
-echo "Все ненужные APK удалены. Остался только подписанный APK: $SIGNED_APK."
+echo "Все ненужные файлы удалены. Остался только подписанный APK: $SIGNED_APK."

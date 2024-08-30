@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceScreen android:title="@string/pref_general" android:key="pref_key_general_category">
+        <EditTextPreference android:singleLine="true" android:title="@string/pref_general_title_iptv_data_server" android:key="pref_key_iptv_data_server" android:inputType="textUri" />
+        <com.niklabs.perfectplayer.settings.EditTextAndButtonPreference android:singleLine="true" android:title="@string/pref_general_title_logos_dir" android:key="pref_key_logos_dir" android:inputType="textUri" />
+        <com.niklabs.perfectplayer.settings.UDPXYPreference android:title="@string/pref_general_title_udpxy_server" android:key="pref_key_udpxy_server" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/pref_gui" android:key="pref_key_gui_category">
+        <ListPreference android:entries="@array/languages" android:title="@string/pref_gui_language" android:key="pref_key_language" android:defaultValue="@string/array_language_value_auto" android:entryValues="@array/languages_values" />
+        <ListPreference android:entries="@array/themes" android:title="@string/pref_gui_theme" android:key="pref_key_theme" android:defaultValue="@string/array_theme_value_satin" android:entryValues="@array/themes_values" />
+        <ListPreference android:entries="@array/font_sizes" android:title="@string/pref_gui_font_size" android:key="pref_key_font_size" android:defaultValue="@string/array_font_size_value_standard" android:entryValues="@array/font_sizes_values" />
+        <ListPreference android:entries="@array/transparencies" android:title="@string/pref_gui_transparency" android:key="pref_key_transparency" android:entryValues="@array/transparencies_values" />
+        <ListPreference android:entries="@array/info_bar_positions" android:title="@string/pref_gui_info_bar_position" android:key="pref_key_info_bar_position" android:defaultValue="@string/array_position_value_bottom" android:entryValues="@array/info_bar_positions_values" />
+        <ListPreference android:entries="@array/info_bar_timeouts" android:title="@string/pref_gui_info_bar_timeout" android:key="pref_key_info_bar_timeout" android:defaultValue="@string/array_info_bar_timeout_value_8" android:entryValues="@array/info_bar_timeouts_values" />
+        <EditTextPreference android:maxLength="4" android:title="@string/pref_gui_pin" android:key="pref_key_pin" android:inputType="number" />
+        <CheckBoxPreference android:title="@string/pref_gui_enable_perfect_remote" android:key="pref_key_enable_perfect_remote" android:defaultValue="false" />
+        <CheckBoxPreference android:title="@string/pref_gui_title_autostart_at_bootup" android:key="pref_key_autostart_at_bootup" android:defaultValue="false" />
+        <CheckBoxPreference android:title="@string/pref_gui_show_channels_groups_as_folders" android:key="pref_key_show_channels_groups_as_folders" android:defaultValue="false" />
+        <PreferenceScreen android:title="@string/pref_clock" android:key="pref_key_clock_category">
+            <CheckBoxPreference android:title="@string/pref_clock_show" android:key="pref_key_show_clock" android:defaultValue="false" />
+            <ListPreference android:entries="@array/font_sizes" android:title="@string/pref_gui_font_size" android:key="pref_key_clock_font_size" android:defaultValue="@string/array_font_size_value_standard" android:entryValues="@array/font_sizes_values" />
+            <ListPreference android:entries="@array/positions" android:title="@string/pref_clock_position" android:key="pref_key_clock_position" android:defaultValue="@string/array_position_value_tr" android:entryValues="@array/positions_values" />
+        </PreferenceScreen>
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/pref_playback" android:key="pref_key_playback_category">
+        <ListPreference android:entries="@array/decoders" android:title="@string/pref_playback_title_decoder" android:key="pref_key_decoder" android:defaultValue="@string/array_decoder_value_auto" android:entryValues="@array/decoders_values" />
+        <ListPreference android:entries="@array/buffer_types" android:title="@string/pref_playback_title_buffer_size" android:key="pref_key_buffer_type" android:defaultValue="@string/array_buffer_type_value_1" android:entryValues="@array/buffer_types_values" />
+        <EditTextPreference android:singleLine="true" android:title="@string/pref_playback_title_user_agent" android:key="pref_key_user_agent" />
+        <CheckBoxPreference android:title="@string/pref_playback_title_afr" android:key="pref_key_afr" android:defaultValue="false" />
+        <CheckBoxPreference android:title="@string/pref_playback_title_playback_in_background" android:key="pref_key_playback_in_background" android:defaultValue="false" />
+        <CheckBoxPreference android:title="@string/pref_playback_title_change_system_volume" android:key="pref_key_change_system_volume" android:defaultValue="true" />
+        <CheckBoxPreference android:title="@string/pref_playback_title_change_volume_by_left_right_keys" android:key="pref_key_change_volume_by_left_right_keys" android:defaultValue="false" />
+        <CheckBoxPreference android:title="@string/pref_playback_title_play_last_channel_at_startup" android:key="pref_key_play_last_channel_at_startup" android:defaultValue="false" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/pref_advanced" android:key="pref_key_advanced_category">
+        <CheckBoxPreference android:title="@string/pref_advanced_title_epg_assign_mode" android:key="pref_key_epgs_assign_mode" android:defaultValue="false" />
+        <PreferenceScreen android:title="@string/pref_logos_sources" android:key="pref_key_logos_sources_category">
+            <CheckBoxPreference android:title="@string/pref_general_title_playlist" android:key="pref_key_logos_source_playlist" android:defaultValue="true" />
+            <CheckBoxPreference android:title="@string/pref_general_title_logos_dir" android:key="pref_key_logos_source_logos_dir" android:defaultValue="true" />
+            <CheckBoxPreference android:title="@string/pref_general_title_epg" android:key="pref_key_logos_source_epg" android:defaultValue="false" />
+        </PreferenceScreen>
+        <CheckBoxPreference android:title="@string/pref_advanced_title_logos_assign_mode" android:key="pref_key_logos_assign_mode" android:defaultValue="false" />
+        <CheckBoxPreference android:title="@string/pref_advanced_title_groups_management_mode" android:key="pref_key_groups_management_mode" android:defaultValue="false" />
+        <CheckBoxPreference android:title="@string/pref_advanced_title_channels_management_mode" android:key="pref_key_channels_management_mode" android:defaultValue="false" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/pref_defaults" android:key="pref_key_defaults_category">
+        <Preference android:title="@string/pref_defaults_title_backup_settings" android:key="pref_key_backup_settings" />
+        <Preference android:title="@string/pref_defaults_title_restore_settings" android:key="pref_key_restore_settings" />
+        <Preference android:title="@string/pref_defaults_title_reset_to_defaults" android:key="pref_key_reset_to_defaults" />
+    </PreferenceScreen>
+</PreferenceScreen>
