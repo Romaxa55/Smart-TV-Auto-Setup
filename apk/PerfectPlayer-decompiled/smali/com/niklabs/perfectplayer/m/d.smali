@@ -167,6 +167,10 @@
 
     iput v0, p0, Lcom/niklabs/perfectplayer/m/d;->a0:I
 
+    iput-boolean v0, p0, Lcom/niklabs/perfectplayer/m/d;->g0:Z
+
+    iput-boolean v0, p0, Lcom/niklabs/perfectplayer/m/d;->j0:Z
+
     iput-boolean v1, p0, Lcom/niklabs/perfectplayer/m/d;->b0:Z
 
     iput v0, p0, Lcom/niklabs/perfectplayer/m/d;->c0:I
