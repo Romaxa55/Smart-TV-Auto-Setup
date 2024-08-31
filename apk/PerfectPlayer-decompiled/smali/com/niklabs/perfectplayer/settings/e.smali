@@ -675,7 +675,7 @@
 
     invoke-virtual {v0, v1}, Landroid/preference/ListPreference;->setSummary(Ljava/lang/CharSequence;)V
 
-    sget-boolean v1, Lcom/niklabs/perfectplayer/MainActivity;->S:Z
+    const/4 v1, 0x1
 
     invoke-virtual {v0, v1}, Landroid/preference/ListPreference;->setEnabled(Z)V
 
@@ -813,41 +813,22 @@
     .locals 3
 
     new-instance v0, Landroid/preference/Preference;
-
     invoke-virtual {p0}, Landroid/preference/PreferenceFragment;->getActivity()Landroid/app/Activity;
-
     move-result-object v1
-
     invoke-direct {v0, v1}, Landroid/preference/Preference;-><init>(Landroid/content/Context;)V
-
     sget-object v1, Lcom/niklabs/perfectplayer/MainActivity;->K:Landroid/content/Context;
-
     const v2, 0x7f090128
-
     invoke-virtual {v1, v2}, Landroid/content/Context;->getString(I)Ljava/lang/String;
-
     move-result-object v1
-
     invoke-virtual {v0, v1}, Landroid/preference/Preference;->setTitle(Ljava/lang/CharSequence;)V
-
     const-string v1, "pref_key_privacy_policy"
-
     invoke-virtual {v0, v1}, Landroid/preference/Preference;->setKey(Ljava/lang/String;)V
-
     invoke-virtual {p0}, Landroid/preference/PreferenceFragment;->getPreferenceScreen()Landroid/preference/PreferenceScreen;
-
     move-result-object v1
-
-    invoke-virtual {v1, v0}, Landroid/preference/PreferenceScreen;->addPreference(Landroid/preference/Preference;)Z
-
-    new-instance v1, Lcom/niklabs/perfectplayer/settings/e$i;
-
-    invoke-direct {v1, p0}, Lcom/niklabs/perfectplayer/settings/e$i;-><init>(Lcom/niklabs/perfectplayer/settings/e;)V
-
-    invoke-virtual {v0, v1}, Landroid/preference/Preference;->setOnPreferenceClickListener(Landroid/preference/Preference$OnPreferenceClickListener;)V
 
     return-void
 .end method
+
 
 .method private o()V
     .locals 2
@@ -976,24 +957,13 @@
 
     move-result-object v1
 
-    invoke-virtual {v1, v0}, Landroid/preference/PreferenceScreen;->addPreference(Landroid/preference/Preference;)Z
+    const/4 v1, 0x1
 
-    sget-boolean v1, Lcom/niklabs/perfectplayer/MainActivity;->S:Z
-
-    if-eqz v1, :cond_0
+    goto :goto_0
 
     const/4 v1, 0x0
 
     invoke-virtual {v0, v1}, Landroid/preference/Preference;->setEnabled(Z)V
-
-    goto :goto_0
-
-    :cond_0
-    new-instance v1, Lcom/niklabs/perfectplayer/settings/e$g;
-
-    invoke-direct {v1, p0}, Lcom/niklabs/perfectplayer/settings/e$g;-><init>(Lcom/niklabs/perfectplayer/settings/e;)V
-
-    invoke-virtual {v0, v1}, Landroid/preference/Preference;->setOnPreferenceClickListener(Landroid/preference/Preference$OnPreferenceClickListener;)V
 
     :goto_0
     return-void
@@ -1033,97 +1003,33 @@
     .locals 6
 
     new-instance v0, Landroid/app/Dialog;
-
     invoke-virtual {p0}, Landroid/preference/PreferenceFragment;->getActivity()Landroid/app/Activity;
-
     move-result-object v1
-
     invoke-direct {v0, v1}, Landroid/app/Dialog;-><init>(Landroid/content/Context;)V
-
     const/4 v1, 0x1
-
     invoke-virtual {v0, v1}, Landroid/app/Dialog;->requestWindowFeature(I)Z
-
     invoke-virtual {v0, v1}, Landroid/app/Dialog;->setCancelable(Z)V
-
     const v1, 0x7f08001a
-
     invoke-virtual {v0, v1}, Landroid/app/Dialog;->setContentView(I)V
-
     const v1, 0x7f060045
-
     invoke-virtual {v0, v1}, Landroid/app/Dialog;->findViewById(I)Landroid/view/View;
-
     move-result-object v1
-
     check-cast v1, Landroid/widget/ProgressBar;
-
     const/4 v2, 0x0
-
     invoke-virtual {v1, v2}, Landroid/widget/ProgressBar;->setVisibility(I)V
-
     const v3, 0x7f060009
-
     invoke-virtual {v0, v3}, Landroid/app/Dialog;->findViewById(I)Landroid/view/View;
-
     move-result-object v3
-
     check-cast v3, Landroid/widget/Button;
-
     new-instance v4, Lcom/niklabs/perfectplayer/settings/e$j;
-
     invoke-direct {v4, p0, v0}, Lcom/niklabs/perfectplayer/settings/e$j;-><init>(Lcom/niklabs/perfectplayer/settings/e;Landroid/app/Dialog;)V
-
     invoke-virtual {v3, v4}, Landroid/widget/Button;->setOnClickListener(Landroid/view/View$OnClickListener;)V
-
     invoke-virtual {v3, v2}, Landroid/widget/Button;->setEnabled(Z)V
 
-    const v2, 0x7f06003a
-
-    invoke-virtual {v0, v2}, Landroid/app/Dialog;->findViewById(I)Landroid/view/View;
-
-    move-result-object v2
-
-    check-cast v2, Landroid/widget/LinearLayout;
-
-    const v4, 0x7f060061
-
-    invoke-virtual {v0, v4}, Landroid/app/Dialog;->findViewById(I)Landroid/view/View;
-
-    move-result-object v4
-
-    check-cast v4, Landroid/webkit/WebView;
-
-    const-string v5, "file:///android_asset/privacy_policy.html"
-
-    invoke-virtual {v4, v5}, Landroid/webkit/WebView;->loadUrl(Ljava/lang/String;)V
-
-    new-instance v5, Lcom/niklabs/perfectplayer/settings/e$k;
-
-    invoke-direct {v5, p0, v1, v3}, Lcom/niklabs/perfectplayer/settings/e$k;-><init>(Lcom/niklabs/perfectplayer/settings/e;Landroid/widget/ProgressBar;Landroid/widget/Button;)V
-
-    invoke-virtual {v4, v5}, Landroid/webkit/WebView;->setWebViewClient(Landroid/webkit/WebViewClient;)V
-
-    new-instance v1, Lcom/niklabs/perfectplayer/settings/e$a;
-
-    invoke-direct {v1, p0}, Lcom/niklabs/perfectplayer/settings/e$a;-><init>(Lcom/niklabs/perfectplayer/settings/e;)V
-
-    invoke-virtual {v4, v1}, Landroid/webkit/WebView;->setOnLongClickListener(Landroid/view/View$OnLongClickListener;)V
-
-    new-instance v1, Lcom/niklabs/perfectplayer/settings/e$b;
-
-    invoke-direct {v1, p0, v4, v2}, Lcom/niklabs/perfectplayer/settings/e$b;-><init>(Lcom/niklabs/perfectplayer/settings/e;Landroid/webkit/WebView;Landroid/widget/LinearLayout;)V
-
-    invoke-virtual {v4, v1}, Landroid/webkit/WebView;->setOnFocusChangeListener(Landroid/view/View$OnFocusChangeListener;)V
-
     invoke-virtual {v0}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
-
     move-result-object v1
-
     if-eqz v1, :cond_0
-
     const/4 v2, -0x1
-
     invoke-virtual {v1, v2, v2}, Landroid/view/Window;->setLayout(II)V
 
     :cond_0

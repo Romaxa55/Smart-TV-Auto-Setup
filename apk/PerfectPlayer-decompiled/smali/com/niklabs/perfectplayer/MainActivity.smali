@@ -353,56 +353,9 @@
 .method private B()V
     .locals 3
 
-    new-instance v0, Landroid/app/Dialog;
-
-    sget-object v1, Lcom/niklabs/perfectplayer/MainActivity;->L:Lcom/niklabs/perfectplayer/MainActivity;
-
-    invoke-direct {v0, v1}, Landroid/app/Dialog;-><init>(Landroid/content/Context;)V
-
-    const/4 v1, 0x1
-
-    invoke-virtual {v0, v1}, Landroid/app/Dialog;->requestWindowFeature(I)Z
-
-    const/4 v1, 0x0
-
-    invoke-virtual {v0, v1}, Landroid/app/Dialog;->setCancelable(Z)V
-
-    const v1, 0x7f08001c
-
-    invoke-virtual {v0, v1}, Landroid/app/Dialog;->setContentView(I)V
-
-    const v1, 0x7f060009
-
-    invoke-virtual {v0, v1}, Landroid/app/Dialog;->findViewById(I)Landroid/view/View;
-
-    move-result-object v1
-
-    check-cast v1, Landroid/widget/Button;
-
-    new-instance v2, Lcom/niklabs/perfectplayer/MainActivity$d;
-
-    invoke-direct {v2, p0, v0}, Lcom/niklabs/perfectplayer/MainActivity$d;-><init>(Lcom/niklabs/perfectplayer/MainActivity;Landroid/app/Dialog;)V
-
-    invoke-virtual {v1, v2}, Landroid/widget/Button;->setOnClickListener(Landroid/view/View$OnClickListener;)V
-
-    const v1, 0x7f06000a
-
-    invoke-virtual {v0, v1}, Landroid/app/Dialog;->findViewById(I)Landroid/view/View;
-
-    move-result-object v1
-
-    check-cast v1, Landroid/widget/Button;
-
-    new-instance v2, Lcom/niklabs/perfectplayer/MainActivity$e;
-
-    invoke-direct {v2, p0, v0}, Lcom/niklabs/perfectplayer/MainActivity$e;-><init>(Lcom/niklabs/perfectplayer/MainActivity;Landroid/app/Dialog;)V
-
-    invoke-virtual {v1, v2}, Landroid/widget/Button;->setOnClickListener(Landroid/view/View$OnClickListener;)V
-
-    invoke-virtual {v0}, Landroid/app/Dialog;->show()V
-
     return-void
 .end method
+
 
 .method private a(Landroid/content/Context;Ljava/lang/String;)Landroid/content/Context;
     .locals 3
