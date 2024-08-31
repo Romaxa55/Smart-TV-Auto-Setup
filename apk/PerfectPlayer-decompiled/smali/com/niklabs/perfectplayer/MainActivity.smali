@@ -3284,7 +3284,7 @@
 
     const-string v0, "pref_key_theme"
 
-    const-string v3, "satin"
+    const-string v3, "velvet"
 
     invoke-interface {p1, v0, v3}, Landroid/content/SharedPreferences;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 
