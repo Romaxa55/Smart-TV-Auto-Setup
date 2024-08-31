@@ -1601,19 +1601,20 @@
     .locals 1
 
     const-string v0, "CREATE TABLE playlist(id INTEGER PRIMARY KEY AUTOINCREMENT, num_pref INTEGER, url TEXT, format TEXT, name TEXT, vod INTEGER, checked INTEGER, active INTEGER)"
+    invoke-virtual {p1, v0}, Landroid/database/sqlite/SQLiteDatabase;->execSQL(Ljava/lang/String;)V
 
+    const-string v0, "INSERT INTO playlist (num_pref, url, format, name, vod, checked, active) VALUES (1, 'https://romaxa55.github.io/world_ip_tv/output/index.m3u', 'm3u', 'WORLD TV', 0, 1, 1)"
     invoke-virtual {p1, v0}, Landroid/database/sqlite/SQLiteDatabase;->execSQL(Ljava/lang/String;)V
 
     const-string v0, "CREATE TABLE channel(id INTEGER PRIMARY KEY AUTOINCREMENT, id_playlist INTEGER, num INTEGER, url TEXT, tvg_id TEXT, tvg_name TEXT, tvg_logo TEXT, tvg_shift INTEGER, group_title TEXT, name TEXT, radio INTEGER, description TEXT, logo_url TEXT, user_agent TEXT, x_forwarded_for TEXT, ext_ctrl TEXT, epg_found INTEGER, catchup_type TEXT, catchup_source TEXT, catchup_duration INTEGER)"
-
     invoke-virtual {p1, v0}, Landroid/database/sqlite/SQLiteDatabase;->execSQL(Ljava/lang/String;)V
 
     const-string v0, "CREATE INDEX index_channel_1 ON channel(num)"
-
     invoke-virtual {p1, v0}, Landroid/database/sqlite/SQLiteDatabase;->execSQL(Ljava/lang/String;)V
 
     return-void
 .end method
+
 
 .method public onUpgrade(Landroid/database/sqlite/SQLiteDatabase;II)V
     .locals 0
