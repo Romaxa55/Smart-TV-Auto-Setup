@@ -9174,7 +9174,7 @@
 
     sget-object v0, Lcom/niklabs/perfectplayer/MainActivity;->M:Landroid/content/SharedPreferences;
 
-    const/4 v1, 0x0
+    const/4 v1, 0x1
 
     const-string v2, "pref_key_show_clock"
 

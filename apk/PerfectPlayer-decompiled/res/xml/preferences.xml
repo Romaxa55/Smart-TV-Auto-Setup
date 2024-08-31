@@ -16,9 +16,9 @@
         <EditTextPreference android:maxLength="4" android:title="@string/pref_gui_pin" android:key="pref_key_pin" android:inputType="number" />
         <CheckBoxPreference android:title="@string/pref_gui_enable_perfect_remote" android:key="pref_key_enable_perfect_remote" android:defaultValue="false" />
         <CheckBoxPreference android:title="@string/pref_gui_title_autostart_at_bootup" android:key="pref_key_autostart_at_bootup" android:defaultValue="false" />
-        <CheckBoxPreference android:title="@string/pref_gui_show_channels_groups_as_folders" android:key="pref_key_show_channels_groups_as_folders" android:defaultValue="false" />
+        <CheckBoxPreference android:title="@string/pref_gui_show_channels_groups_as_folders" android:key="pref_key_show_channels_groups_as_folders" android:defaultValue="true" />
         <PreferenceScreen android:title="@string/pref_clock" android:key="pref_key_clock_category">
-            <CheckBoxPreference android:title="@string/pref_clock_show" android:key="pref_key_show_clock" android:defaultValue="false" />
+            <CheckBoxPreference android:title="@string/pref_clock_show" android:key="pref_key_show_clock" android:defaultValue="true" />
             <ListPreference android:entries="@array/font_sizes" android:title="@string/pref_gui_font_size" android:key="pref_key_clock_font_size" android:defaultValue="@string/array_font_size_value_standard" android:entryValues="@array/font_sizes_values" />
             <ListPreference android:entries="@array/positions" android:title="@string/pref_clock_position" android:key="pref_key_clock_position" android:defaultValue="@string/array_position_value_tr" android:entryValues="@array/positions_values" />
         </PreferenceScreen>
