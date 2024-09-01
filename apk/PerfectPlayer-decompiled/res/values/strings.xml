@@ -109,16 +109,6 @@
     <string name="array_position_value_tl">tl</string>
     <string name="array_position_value_top">top</string>
     <string name="array_position_value_tr">tr</string>
-    <string name="array_theme_emerald">Emerald</string>
-    <string name="array_theme_graphite">Graphite</string>
-    <string name="array_theme_satin">Satin</string>
-    <string name="array_theme_sky">Sky</string>
-    <string name="array_theme_snow">Snow</string>
-    <string name="array_theme_value_emerald">emerald</string>
-    <string name="array_theme_value_graphite">graphite</string>
-    <string name="array_theme_value_satin">satin</string>
-    <string name="array_theme_value_sky">sky</string>
-    <string name="array_theme_value_snow">snow</string>
     <string name="array_theme_value_velvet">velvet</string>
     <string name="array_theme_velvet">Velvet</string>
     <string name="array_transparency_1">1</string>

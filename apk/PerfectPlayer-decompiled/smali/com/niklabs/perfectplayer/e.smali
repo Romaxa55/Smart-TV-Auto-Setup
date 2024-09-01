@@ -1905,69 +1905,13 @@
 
     move-result v2
 
-    const/4 v3, 0x1
-
     const/4 v4, 0x6
-
-    const/4 v5, 0x5
 
     sparse-switch v2, :sswitch_data_0
 
     goto :goto_0
 
     :sswitch_0
-    const-string v2, "satin"
-
-    invoke-virtual {p0, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result p0
-
-    if-eqz p0, :cond_1
-
-    const/4 p0, 0x2
-
-    goto :goto_1
-
-    :sswitch_1
-    const-string v2, "graphite"
-
-    invoke-virtual {p0, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result p0
-
-    if-eqz p0, :cond_1
-
-    const/4 p0, 0x1
-
-    goto :goto_1
-
-    :sswitch_2
-    const-string v2, "snow"
-
-    invoke-virtual {p0, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result p0
-
-    if-eqz p0, :cond_1
-
-    const/4 p0, 0x3
-
-    goto :goto_1
-
-    :sswitch_3
-    const-string v2, "sky"
-
-    invoke-virtual {p0, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result p0
-
-    if-eqz p0, :cond_1
-
-    const/4 p0, 0x5
-
-    goto :goto_1
-
-    :sswitch_4
     const-string v2, "velvet"
 
     invoke-virtual {p0, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -1980,28 +1924,11 @@
 
     goto :goto_1
 
-    :sswitch_5
-    const-string v2, "emerald"
-
-    invoke-virtual {p0, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-
-    move-result p0
-
-    if-eqz p0, :cond_1
-
-    const/4 p0, 0x0
-
-    goto :goto_1
-
     :cond_1
     :goto_0
     const/4 p0, -0x1
 
     :goto_1
-    if-eqz p0, :cond_3
-
-    if-eq p0, v5, :cond_2
-
     if-eq p0, v4, :cond_2
 
     goto :goto_2
@@ -2009,22 +1936,12 @@
     :cond_2
     const/4 v0, 0x4
 
-    goto :goto_2
-
-    :cond_3
-    const/4 v0, 0x1
-
     :goto_2
     return v0
 
     :sswitch_data_0
     .sparse-switch
-        -0x6165d1dc -> :sswitch_5
-        -0x30e20118 -> :sswitch_4
-        0x1bd21 -> :sswitch_3
-        0x35f183 -> :sswitch_2
-        0x600ac8c -> :sswitch_1
-        0x682678b -> :sswitch_0
+        -0x30e20118 -> :sswitch_0
     .end sparse-switch
 .end method
 

@@ -505,16 +505,6 @@
     <public type="string" name="array_position_value_tl" id="0x7f09006a" />
     <public type="string" name="array_position_value_top" id="0x7f09006b" />
     <public type="string" name="array_position_value_tr" id="0x7f09006c" />
-    <public type="string" name="array_theme_emerald" id="0x7f09006d" />
-    <public type="string" name="array_theme_graphite" id="0x7f09006e" />
-    <public type="string" name="array_theme_satin" id="0x7f09006f" />
-    <public type="string" name="array_theme_sky" id="0x7f090070" />
-    <public type="string" name="array_theme_snow" id="0x7f090071" />
-    <public type="string" name="array_theme_value_emerald" id="0x7f090072" />
-    <public type="string" name="array_theme_value_graphite" id="0x7f090073" />
-    <public type="string" name="array_theme_value_satin" id="0x7f090074" />
-    <public type="string" name="array_theme_value_sky" id="0x7f090075" />
-    <public type="string" name="array_theme_value_snow" id="0x7f090076" />
     <public type="string" name="array_theme_value_velvet" id="0x7f090077" />
     <public type="string" name="array_theme_velvet" id="0x7f090078" />
     <public type="string" name="array_transparency_1" id="0x7f090079" />

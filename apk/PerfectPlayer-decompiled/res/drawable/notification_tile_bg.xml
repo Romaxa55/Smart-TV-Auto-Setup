@@ -1,3 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<bitmap android:src="@drawable/notify_panel_notification_icon_bg" android:tileMode="repeat"
-  xmlns:android="http://schemas.android.com/apk/res/android" />
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Тень для эффекта объемности -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#22000000" />
+            <corners android:radius="8dp" />
+            <padding android:left="4dp" android:top="4dp" android:right="4dp" android:bottom="4dp" />
+        </shape>
+    </item>
+
+    <!-- Основное изображение bitmap -->
+    <item>
+        <bitmap
+            android:src="@drawable/notify_panel_notification_icon_bg"
+            android:tileMode="repeat"
+            android:gravity="center" />
+    </item>
+
+    <!-- Градиентный фон для придания глубины -->
+    <item>
+        <shape android:shape="oval">
+            <gradient
+                android:startColor="#FF4080FF"
+                android:endColor="#FF80C0FF"
+                android:angle="45" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+</layer-list>

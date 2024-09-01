@@ -48,13 +48,11 @@
     <color name="timeline_line_buffered_over">#80FFFFFF</color>
     <color name="timeline_text">#FF00D2E6</color>
 
-    <color name="button_bg">#00FFFFFF</color> <!-- Прозрачный цвет -->
-    <color name="button_selected">#FFEF5350</color> <!-- Красный с оранжевым оттенком -->
-    <color name="button_rollover">#00FFFFFF</color> <!-- Светло-розовый -->
-    <color name="button_pressed">#00FFFFFF</color> <!-- Красный -->
-    <color name="button_disabled_bg">#00FFFFFF</color> <!-- Средне-серый -->
-
-
+    <color name="button_bg">#00FFFFFF</color>
+    <color name="button_selected">#FFEF5350</color>
+    <color name="button_rollover">#00FFFFFF</color>
+    <color name="button_pressed">#00FFFFFF</color>
+    <color name="button_disabled_bg">#00FFFFFF</color>
 
     <color name="epg_now1">#F000C8DC</color>
     <color name="epg_now2">#A0008593</color>
@@ -97,11 +95,24 @@
     <color name="list_item_progress_bar_selected_bg">#00000000</color>
     <color name="list_item_progress_bar_selected_stroke">#80DCDCDC</color>
 
+    <color name="sub_number_bg">#60A0A0A0</color>
+
     <color name="checkbox_bg">#00000000</color>
     <color name="checkbox_fg">#00000000</color>
 
     <color name="clock_fg">#FFFFFFFF</color>
 
     <color name="fv_note_fg">#80FFFFFF</color>
+
+    <!-- Добавляем недостающие элементы -->
+    <color name="button_disabled">#00FFFFFF</color> <!-- Светло-серый, как в button_disabled_bg -->
+    <color name="info_bar_epg_now_selected">#FF00D2E6</color> <!-- Голубой, как info_bar_channel -->
+    <color name="info_bar_epg_next_selected">#FFBEBEBE</color> <!-- Светло-серый, как epg_time -->
+    <color name="button_default">#FFEF5350</color> <!-- Красный с оранжевым оттенком, как button_selected -->
+    <color name="highlight_bg">#FFEF9A9A</color> <!-- Цвет выделения, как selection_bg -->
+    <color name="highlight_fg">#FF00D2E6</color> <!-- Цвет текста выделения, как text_highlight -->
+    <color name="default_fg">#FFFFFFFF</color> <!-- Белый цвет, как window_title -->
+    <color name="default_bg">#FFFF0000</color> <!-- Темно-серый, как window_bg -->
+
 
 </ThemeValues>

@@ -8,7 +8,7 @@
     </PreferenceScreen>
     <PreferenceScreen android:title="@string/pref_gui" android:key="pref_key_gui_category">
         <ListPreference android:entries="@array/languages" android:title="@string/pref_gui_language" android:key="pref_key_language" android:defaultValue="@string/array_language_value_auto" android:entryValues="@array/languages_values" />
-        <ListPreference android:entries="@array/themes" android:title="@string/pref_gui_theme" android:key="pref_key_theme" android:defaultValue="@string/array_theme_value_satin" android:entryValues="@array/themes_values" />
+        <ListPreference android:entries="@array/themes" android:title="@string/pref_gui_theme" android:key="pref_key_theme" android:defaultValue="@string/array_theme_value_velvet" android:entryValues="@array/themes_values" />
         <ListPreference android:entries="@array/font_sizes" android:title="@string/pref_gui_font_size" android:key="pref_key_font_size" android:defaultValue="@string/array_font_size_value_standard" android:entryValues="@array/font_sizes_values" />
         <ListPreference android:entries="@array/transparencies" android:title="@string/pref_gui_transparency" android:key="pref_key_transparency" android:entryValues="@array/transparencies_values" />
         <ListPreference android:entries="@array/info_bar_positions" android:title="@string/pref_gui_info_bar_position" android:key="pref_key_info_bar_position" android:defaultValue="@string/array_position_value_bottom" android:entryValues="@array/info_bar_positions_values" />

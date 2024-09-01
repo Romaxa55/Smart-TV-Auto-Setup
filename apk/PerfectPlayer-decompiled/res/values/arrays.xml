@@ -137,19 +137,9 @@
         <item>@string/array_position_value_br</item>
     </string-array>
     <string-array name="themes">
-        <item>@string/array_theme_emerald</item>
-        <item>@string/array_theme_graphite</item>
-        <item>@string/array_theme_satin</item>
-        <item>@string/array_theme_sky</item>
-        <item>@string/array_theme_snow</item>
         <item>@string/array_theme_velvet</item>
     </string-array>
     <string-array name="themes_values">
-        <item>@string/array_theme_value_emerald</item>
-        <item>@string/array_theme_value_graphite</item>
-        <item>@string/array_theme_value_satin</item>
-        <item>@string/array_theme_value_sky</item>
-        <item>@string/array_theme_value_snow</item>
         <item>@string/array_theme_value_velvet</item>
     </string-array>
     <string-array name="transparencies">
