@@ -39,13 +39,16 @@ class TVInstaller:
         output = self.device.install(apk_path)
         if output:
             logger.info(f"APK {apk_path} успешно установлен.")
+            return True
         else:
             logger.error(f"Ошибка при установке APK {apk_path}.")
+            return False
 
     async def install_custom_launcher(self):
-        """Устанавливаем кастомный лаунчер, если опция включена в конфигурации."""
+        """Устанавливаем и запускаем кастомный лаунчер, если опция включена в конфигурации."""
         launcher_path = 'apk/Launcher.apk'
         launcher_url = 'https://github.com/Romaxa55/Smart-TV-Auto-Setup/releases/download/v1.0.0/Launcher.apk'
+        package_name = 'org.cosinus.launchertv'  # Имя пакета вашего лаунчера
 
         # Проверяем наличие лаунчера в локальной директории
         if not await os.path.exists(launcher_path):
@@ -58,10 +61,22 @@ class TVInstaller:
             result = await self.install_package(launcher_path)
             if result:
                 logger.info("Кастомный лаунчер успешно установлен.")
+
+                # Запускаем кастомный лаунчер
+                await self.launch_custom_launcher(package_name)
             else:
                 logger.error("Ошибка установки кастомного лаунчера.")
         else:
             logger.error("Лаунчер не найден и не удалось загрузить.")
+
+    async def launch_custom_launcher(self, package_name):
+        """Запускаем кастомный лаунчер."""
+        logger.info(f"Запуск кастомного лаунчера {package_name}...")
+        output = self.device.shell(f"am start {package_name}")
+        if "Error" not in output:
+            logger.info(f"Лаунчер {package_name} успешно запущен.")
+        else:
+            logger.error(f"Ошибка запуска лаунчера {package_name}: {output}")
 
     @staticmethod
     async def download_file(url, save_path):
@@ -80,26 +95,35 @@ class TVInstaller:
 
     async def install_required_packages(self):
         """Устанавливаем пакеты, указанные в конфигурации."""
+        # Получаем список установленных пакетов
+        installed_packages = await self.get_installed_packages()
+
         packages = self.config.app_management.get('install_apps', {}).get('install_packages', [])
         for package in packages:
             package_path = package['path']
             package_url = package['url']
+            package_name = package.get('name')
+
+            # Проверяем, установлен ли пакет уже на устройстве
+            if package_name in installed_packages:
+                logger.info(f"Пакет {package_name} уже установлен. Пропускаем установку.")
+                continue
 
             # Проверяем, существует ли пакет локально
             if not await os.path.exists(package_path):
-                logger.info(f"Пакет {package['name']} не найден в {package_path}, загружаем с {package_url}...")
+                logger.info(f"Пакет {package_name} не найден в {package_path}, загружаем с {package_url}...")
                 await self.download_file(package_url, package_path)
 
             # Устанавливаем пакет
             if await os.path.exists(package_path):
-                logger.info(f"Устанавливаем пакет {package['name']}...")
+                logger.info(f"Устанавливаем пакет {package_name}...")
                 result = await self.install_package(package_path)
                 if result:
-                    logger.info(f"Пакет {package['name']} успешно установлен.")
+                    logger.info(f"Пакет {package_name} успешно установлен.")
                 else:
-                    logger.error(f"Ошибка установки пакета {package['name']}.")
+                    logger.error(f"Ошибка установки пакета {package_name}.")
             else:
-                logger.error(f"Пакет {package['name']} не найден и не удалось загрузить.")
+                logger.error(f"Пакет {package_name} не найден и не удалось загрузить.")
 
     async def run(self):
         """Запуск процесса установки и удаления пакетов."""

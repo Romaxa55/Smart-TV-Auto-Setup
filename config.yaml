@@ -2,9 +2,16 @@ app_management:
   install_apps:  # Включить/выключить установку приложений
     enabled: true  # true, если нужно устанавливать приложения
     install_packages:  # Список пакетов для установки
-      - name: "World.IPTV"
+      - name: "com.niklabs.pp"
         path: "apk/World.IPTV.apk"
         url: "https://github.com/Romaxa55/Smart-TV-Auto-Setup/releases/download/v1.0.0/World.IPTV.apk"
+      - name: "com.teamsmart.videomanager.tv"
+        path: "apk/SmartTube_stable_23.30_armeabi-v7a.apk"
+        url: "https://github.com/Romaxa55/Smart-TV-Auto-Setup/releases/download/v1.0.0/SmartTube_stable_23.30_armeabi-v7a.apk"
+      - name: "org.jellyfin.androidtv"
+        path: "org.jellyfin.androidtv_170499.apk"
+        url: "https://f-droid.org/repo/org.jellyfin.androidtv_170499.apk"
+
   remove_apps: false  # Включить удаление ненужных приложений
   remove_launchers:  # Включить/выключить удаление лаунчеров
     enabled: true  # true, если нужно удалять лаунчеры

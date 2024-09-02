@@ -63,38 +63,8 @@ removable_packages:
     description: "Инструмент для обновления APK от производителя KTC"
   - package: com.ionitech.airscreen
     description: "AirScreen, поддержка технологий AirPlay, Chromecast, DLNA, Miracast"
-  - package: com.mstar.tv.app
-    description: "Приложение для ТВ от производителя MStar"
-  - package: com.mstar.tv.service
-    description: "Сервис для работы ТВ от производителя MStar"
-  - package: com.ktc.filemanager
-    description: "Файловый менеджер от производителя KTC"
-  - package: com.softwinner.TvdVideo
-    description: "Приложение для воспроизведения видео от производителя Softwinner"
-  - package: com.softwinner.tvvolume
-    description: "Приложение для регулирования громкости ТВ от производителя Softwinner"
-  - package: com.softwinner.provision
-    description: "Приложение для первичной настройки устройства от производителя Softwinner"
-  - package: com.softwinner.awlogsettings
-    description: "Приложение для настройки логов от производителя Softwinner"
-  - package: com.softwinner.dragonatt
-    description: "Стороннее приложение от Softwinner для диагностики и обслуживания"
-  - package: com.softwinner.dragonbox
-    description: "Стороннее приложение от Softwinner для диагностики устройства"
-  - package: com.hotack.writesn
-    description: "Приложение от производителя Hotack для записи серийных номеров"
   - package: com.hotack.hotackfeaturestest
     description: "Приложение для тестирования функций устройства от Hotack"
-  - package: com.softwinner.settingssetup
-    description: "Приложение для настройки устройства от производителя Softwinner"
-  - package: com.softwinner.vis
-    description: "Приложение для просмотра изображений от производителя Softwinner"
-  - package: com.softwinner.awlivetv
-    description: "Приложение для просмотра ТВ в реальном времени от производителя Softwinner"
-  - package: com.softwinner.settingsassist
-    description: "Ассистент по настройке устройства от производителя Softwinner"
-  - package: com.softwinner.awsource
-    description: "Медиа проигрыватель от производителя Softwinner"
   - package: com.softwinner.screenshot
     description: "Приложение для снятия скриншотов от производителя Softwinner"
   - package: com.softwinner.agingdragonbox
@@ -103,14 +73,8 @@ removable_packages:
     description: "Менеджер иконок тем от производителя Softwinner"
   - package: com.softwinner.theme.color
     description: "Менеджер цветов тем от производителя Softwinner"
-  - package: com.softwinner.awmanager
-    description: "Менеджер системы от производителя Softwinner"
-  - package: com.softwinner.miracastReceiver
-    description: "Приложение для приема Miracast трансляций от производителя Softwinner"
   - package: com.softwinner.update
     description: "Приложение для обновления системы от производителя Softwinner"
-  - package: com.softwinner.TvdFileManager
-    description: "Файловый менеджер от производителя Softwinner"
   - package: com.softwinner.tvgif
     description: "Приложение для отображения анимаций GIF на ТВ от производителя Softwinner"
 
@@ -147,24 +111,14 @@ removable_packages:
     description: "Тестовое приложение CTS Shim, можно удалить"
   - package: com.android.vpndialogs
     description: "Диалоги VPN, если VPN не используется, можно удалить"
-  - package: com.android.wallpaperbackup
-    description: "Резервное копирование обоев, не нужно"
   - package: com.android.providers.blockednumber
     description: "Провайдер заблокированных номеров, не нужен"
   - package: com.android.providers.userdictionary
     description: "Пользовательский словарь, не нужен"
-  - package: com.android.hotspot2.osulogin
-    description: "Аутентификация для Wi-Fi Hotspot 2.0, можно удалить, если не используется"
-  - package: com.android.bluetoothmidiservice
-    description: "Служба поддержки MIDI по Bluetooth, не нужна"
-  - package: com.htc.closedialog
-    description: "Приложение от HTC, вероятно, не нужно"
   - package: com.htc.htcotaupdate
     description: "Обновление OTA от HTC, не нужно"
   - package: com.htc.hyk_test
     description: "Тестовое приложение HTC"
-  - package: com.htc.htcsettings
-    description: "Настройки HTC, не нужны"
   - package: com.android.music
     description: "Музыкальное приложение Android, не нужно на проекторе"
   - package: com.android.printservice.recommendation
@@ -175,7 +129,5 @@ removable_packages:
     description: "Вспомогательная активность, можно удалить"
   - package: com.waxrain.airplaydmr2
     description: "Поддержка AirPlay, если не используется, можно удалить"
-  - package: com.android.proxyhandler
-    description: "Обработчик прокси, если прокси не используется, можно удалить"
   - package: com.google.android.apps.searchlite.overlay
     description: "Облегченная версия поиска Google, если не используется, можно удалить"
