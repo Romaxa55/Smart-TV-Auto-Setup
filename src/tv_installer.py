@@ -1,7 +1,10 @@
 import asyncio
-from ppadb.client_async import ClientAsync as AdbClient  # Используем асинхронный клиент ADB
-from utils.logger import logger
+
+import aiohttp
+from aiofiles import os
+
 from config.appium_config import Config
+from utils.logger import logger
 
 
 class TVInstaller:
@@ -39,15 +42,123 @@ class TVInstaller:
         else:
             logger.error(f"Ошибка при установке APK {apk_path}.")
 
+    async def install_custom_launcher(self):
+        """Устанавливаем кастомный лаунчер, если опция включена в конфигурации."""
+        launcher_path = 'apk/Launcher.apk'
+        launcher_url = 'https://github.com/Romaxa55/Smart-TV-Auto-Setup/releases/download/v1.0.0/Launcher.apk'
+
+        # Проверяем наличие лаунчера в локальной директории
+        if not await os.path.exists(launcher_path):
+            logger.info(f"Лаунчер не найден в {launcher_path}, загружаем с {launcher_url}...")
+            await self.download_file(launcher_url, launcher_path)
+
+        # Устанавливаем лаунчер, если файл существует
+        if await os.path.exists(launcher_path):
+            logger.info("Устанавливаем кастомный лаунчер...")
+            result = await self.install_package(launcher_path)
+            if result:
+                logger.info("Кастомный лаунчер успешно установлен.")
+            else:
+                logger.error("Ошибка установки кастомного лаунчера.")
+        else:
+            logger.error("Лаунчер не найден и не удалось загрузить.")
+
+    @staticmethod
+    async def download_file(url, save_path):
+        """Асинхронная загрузка файла с URL."""
+        try:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as response:
+                    if response.status == 200:
+                        with open(save_path, 'wb') as f:
+                            f.write(await response.read())
+                        logger.info(f"Файл успешно загружен в {save_path}.")
+                    else:
+                        logger.error(f"Ошибка загрузки файла. Статус: {response.status}")
+        except Exception as e:
+            logger.error(f"Ошибка при загрузке файла: {e}")
+
+    async def install_required_packages(self):
+        """Устанавливаем пакеты, указанные в конфигурации."""
+        packages = self.config.app_management.get('install_apps', {}).get('install_packages', [])
+        for package in packages:
+            package_path = package['path']
+            package_url = package['url']
+
+            # Проверяем, существует ли пакет локально
+            if not await os.path.exists(package_path):
+                logger.info(f"Пакет {package['name']} не найден в {package_path}, загружаем с {package_url}...")
+                await self.download_file(package_url, package_path)
+
+            # Устанавливаем пакет
+            if await os.path.exists(package_path):
+                logger.info(f"Устанавливаем пакет {package['name']}...")
+                result = await self.install_package(package_path)
+                if result:
+                    logger.info(f"Пакет {package['name']} успешно установлен.")
+                else:
+                    logger.error(f"Ошибка установки пакета {package['name']}.")
+            else:
+                logger.error(f"Пакет {package['name']} не найден и не удалось загрузить.")
+
     async def run(self):
         """Запуск процесса установки и удаления пакетов."""
         # Получение списка установленных пакетов
         installed_packages = await self.get_installed_packages()
         logger.info(f"Установленные пакеты {installed_packages}")
 
-        # Удаляем ненужные пакеты
-        for package in self.config.packages_to_uninstall:
-            if package in installed_packages:
-                await self.uninstall_package(package)
+        # Логика удаления обычных приложений
+        if self.config.app_management.get('remove_apps'):
+            logger.info("Удаляем ненужные пакеты...")
+
+            # Создаем список задач для удаления пакетов
+            uninstall_tasks = [
+                self.uninstall_package(package)
+                for package in self.config.packages_to_uninstall
+                if package in installed_packages
+            ]
+
+            # Выполняем все задачи одновременно
+            if uninstall_tasks:
+                await asyncio.gather(*uninstall_tasks)
             else:
-                logger.info(f"Пакет {package} не найден на устройстве и не может быть удален.")
+                logger.info("Нет пакетов для удаления.")
+        else:
+            logger.info("Удаление приложений отключено в конфигурации.")
+
+        # Логика удаления лаунчеров
+        if self.config.app_management.get('remove_launchers', {}).get('enabled'):
+            logger.info("Удаляем ненужные лаунчеры...")
+
+            if self.config.app_management['remove_launchers'].get('auto'):
+                # Автоматически находим лаунчеры для удаления
+                launchers_to_remove = [pkg for pkg in installed_packages if "launcher" in pkg.lower()]
+            else:
+                # Удаляем только лаунчеры из списка
+                launchers_to_remove = self.config.app_management['remove_launchers'].get('launchers_list', [])
+
+            # Создаем задачи для удаления лаунчеров
+            launcher_uninstall_tasks = [
+                self.uninstall_package(launcher)
+                for launcher in launchers_to_remove
+                if launcher in installed_packages
+            ]
+
+            # Выполняем все задачи одновременно
+            if launcher_uninstall_tasks:
+                await asyncio.gather(*launcher_uninstall_tasks)
+            else:
+                logger.info("Нет лаунчеров для удаления.")
+
+            # После удаления лаунчеров устанавливаем кастомный лаунчер
+            await self.install_custom_launcher()
+
+        else:
+            logger.info("Удаление лаунчеров отключено в конфигурации.")
+
+        # Логика установки пакетов
+        if self.config.app_management.get('install_apps', {}).get('enabled'):
+            logger.info("Устанавливаем необходимые пакеты...")
+            await self.install_required_packages()
+        else:
+            logger.info("Установка приложений отключена в конфигурации.")

@@ -6,14 +6,21 @@ from utils.logger import logger
 class Config:
     """Класс для хранения конфигурации Appium для Android TV."""
 
-    def __init__(self, device_name, platform_name='Android', automation_name='uiautomator2',
-                 appium_server_url='http://localhost:4723', uninstall_packages_file='uninstall_packages.yaml'):
+    def __init__(self, device_name, platform_name='Android',
+                 automation_name='uiautomator2',
+                 appium_server_url='http://localhost:4723',
+                 uninstall_packages_file='uninstall_packages.yaml',
+                 app_management_config_file='config.yaml'):
+
         self.device_name = device_name
         self.platform_name = platform_name
         self.automation_name = automation_name
         self.appium_server_url = appium_server_url
         self.uninstall_packages_file = uninstall_packages_file
+
+        # Загрузка конфигураций из файлов
         self.packages_to_uninstall = self.load_packages_to_uninstall()
+        self.app_management = self.load_app_management_config(app_management_config_file)
 
     @staticmethod
     def get_local_network_range(interface='en0'):
@@ -63,3 +70,22 @@ class Config:
         except Exception as e:
             logger.error(f"Ошибка при загрузке пакетов для удаления: {e}")
             return []
+
+    @staticmethod
+    def load_app_management_config(config_file):
+        """Загрузка конфигурации управления приложениями из YAML файла."""
+        try:
+            with open(config_file, 'r') as file:
+                config_data = yaml.safe_load(file)
+                app_management = config_data.get('app_management', {})
+                logger.info(f"Конфигурация управления приложениями загружена из {config_file}.")
+                return app_management
+        except FileNotFoundError:
+            logger.error(f"Файл {config_file} не найден.")
+            return {}
+        except yaml.YAMLError as e:
+            logger.error(f"Ошибка при разборе YAML файла: {e}")
+            return {}
+        except Exception as e:
+            logger.error(f"Ошибка при загрузке конфигурации управления приложениями: {e}")
+            return {}
