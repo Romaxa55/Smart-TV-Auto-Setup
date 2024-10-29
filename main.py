@@ -8,20 +8,24 @@ from utils.scanner_helper import ScannerHelper
 from src.tv_connector import TVAutoSetup
 from utils.logger import logger
 
+
 async def main():
     # Создание объектов хелперов
     scanner_helper = ScannerHelper()
     adb_helper = AdbHelper()
     node_helper = NodeHelper()
+    deviceIp = Config.load_app_management_config("config.yaml").get("device_ip")
 
-    # Асинхронно сканируем локальную сеть на устройства с открытым портом 5555
-    logger.info("Начинаем сканирование сети...")
-    await scanner_helper.scan_network()
+    if not deviceIp.get("enabled"):
+        # Асинхронно сканируем локальную сеть на устройства с открытым портом 5555
+        logger.info("Начинаем сканирование сети...")
+        await scanner_helper.scan_network()
 
-    # Получаем список найденных устройств
-    found_devices = scanner_helper.get_found_devices()
-    logger.info(f"Найденные устройства: {found_devices}")
-
+        # Получаем список найденных устройств
+        found_devices = scanner_helper.get_found_devices()
+        logger.info(f"Найденные устройства: {found_devices}")
+    else:
+        found_devices: dict = [deviceIp.get("ip")]
     # Инициализация переменных для доступа в finally
     tv_setup = None
 
@@ -29,6 +33,7 @@ async def main():
         # Проверяем, были ли найдены устройства
         if found_devices:
             # Используем первое найденное устройство
+
             device_ip = found_devices[0]
             logger.info(f"Используем первое найденное устройство: {device_ip}")
 
@@ -73,6 +78,7 @@ async def main():
             await adb_helper.disconnect()
         if tv_setup:
             await tv_setup.stop_appium_server()
+
 
 if __name__ == '__main__':
     logger.info("Запуск основной функции...")

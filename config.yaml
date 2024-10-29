@@ -1,4 +1,7 @@
 app_management:
+  device_ip:
+    enabled: true
+    ip: 10.0.0.28
   install_apps:  # Включить/выключить установку приложений
     enabled: true  # true, если нужно устанавливать приложения
     install_packages:  # Список пакетов для установки
@@ -14,7 +17,7 @@ app_management:
 
   remove_apps: false  # Включить удаление ненужных приложений
   remove_launchers:  # Включить/выключить удаление лаунчеров
-    enabled: true  # true, если нужно удалять лаунчеры
+    enabled: false  # true, если нужно удалять лаунчеры
     auto: true  # true, если нужно автоматически найти и удалить лаунчеры
     launchers_list:  # Список лаунчеров для удаления (если auto: false)
       - com.htc.htclauncherhighenglishd08
