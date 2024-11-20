@@ -1,7 +1,7 @@
 app_management:
   device_ip:
-    enabled: true
-    ip: 10.0.0.28
+    enabled: false
+    ip: 10.0.0.50
   install_apps:  # Включить/выключить установку приложений
     enabled: true  # true, если нужно устанавливать приложения
     install_packages:  # Список пакетов для установки
@@ -9,15 +9,15 @@ app_management:
         path: "apk/World.IPTV.apk"
         url: "https://github.com/Romaxa55/Smart-TV-Auto-Setup/releases/download/v1.0.0/World.IPTV.apk"
       - name: "com.teamsmart.videomanager.tv"
-        path: "apk/SmartTube_stable_23.30_armeabi-v7a.apk"
-        url: "https://github.com/Romaxa55/Smart-TV-Auto-Setup/releases/download/v1.0.0/SmartTube_stable_23.30_armeabi-v7a.apk"
-      - name: "org.jellyfin.androidtv"
-        path: "org.jellyfin.androidtv_170499.apk"
-        url: "https://f-droid.org/repo/org.jellyfin.androidtv_170499.apk"
+        path: "apk/SmartTube_stable_24.71_armeabi-v7a.apk"
+        url: "https://github.com/Romaxa55/Smart-TV-Auto-Setup/releases/download/v1.0.0/SmartTube_stable_24.71_armeabi-v7a.apk"
+#      - name: "org.jellyfin.androidtv"
+#        path: "org.jellyfin.androidtv_170499.apk"
+#        url: "https://f-droid.org/repo/org.jellyfin.androidtv_170499.apk"
 
   remove_apps: false  # Включить удаление ненужных приложений
   remove_launchers:  # Включить/выключить удаление лаунчеров
-    enabled: false  # true, если нужно удалять лаунчеры
+    enabled: true  # true, если нужно удалять лаунчеры
     auto: true  # true, если нужно автоматически найти и удалить лаунчеры
     launchers_list:  # Список лаунчеров для удаления (если auto: false)
       - com.htc.htclauncherhighenglishd08
